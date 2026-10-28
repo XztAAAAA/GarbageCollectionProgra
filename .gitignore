@@ -1,0 +1,37 @@
+# Unity generated caches
+/GarbageCollectionProgramUnity/[Ll]ibrary/
+/GarbageCollectionProgramUnity/[Tt]emp/
+/GarbageCollectionProgramUnity/[Oo]bj/
+/GarbageCollectionProgramUnity/[Ll]ogs/
+/GarbageCollectionProgramUnity/[Uu]ser[Ss]ettings/
+/GarbageCollectionProgramUnity/[Bb]uild/
+/GarbageCollectionProgramUnity/[Bb]uilds/
+/GarbageCollectionProgramUnity/[Mm]emoryCaptures/
+/GarbageCollectionProgramUnity/[Rr]ecordings/
+
+# Generated IDE solution and project files
+*.csproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+.vs/
+.idea/
+
+# Crash and temporary files
+sysinfo.txt
+crashlytics-build.properties
+*.tmp
+*.lock
+
+# OS metadata
+.DS_Store
+Thumbs.db
+desktop.ini
