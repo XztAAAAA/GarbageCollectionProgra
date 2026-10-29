@@ -9,37 +9,37 @@ public class WasteItemView : MonoBehaviour
     public int ItemId { get; private set; }
     public string IconKey { get; private set; }
 
+    // 使用 Luban 生成的枚举名称作为分类标识
+    public string CategoryKey { get; private set; }
+
     private void Awake()
     {
         if (itemImage == null)
-        {
             itemImage = GetComponent<Image>();
-        }
     }
 
     public void Initialize(
         int itemId,
         string iconKey,
+        string categoryKey,
         Sprite sprite)
     {
         ItemId = itemId;
         IconKey = iconKey;
+        CategoryKey = categoryKey;
 
         if (itemImage == null)
-        {
             itemImage = GetComponent<Image>();
-        }
 
         itemImage.sprite = sprite;
         itemImage.preserveAspect = true;
+        itemImage.raycastTarget = true;
 
-        // 没有图片时显示浅绿色占位方块。
         itemImage.color = sprite == null
             ? new Color(0.75f, 0.85f, 0.75f, 0.8f)
             : Color.white;
 
-        itemImage.raycastTarget = true;
         gameObject.SetActive(true);
-        gameObject.name = ItemId.ToString();
+        gameObject.name = itemId.ToString();
     }
 }

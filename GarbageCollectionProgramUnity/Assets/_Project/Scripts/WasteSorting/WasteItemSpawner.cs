@@ -16,7 +16,8 @@ public class WasteItemSpawner : MonoBehaviour
     };
 
     [Header("物体尺寸")]
-    [SerializeField] private Vector2 itemSize =
+    [SerializeField]
+    private Vector2 itemSize =
         new Vector2(150f, 150f);
 
     [SerializeField] private float minDistance = 170f;
@@ -80,7 +81,12 @@ public class WasteItemSpawner : MonoBehaviour
                 $"WasteItems/{data.IconKey}"
             );
 
-            view.Initialize(data.Id, data.IconKey, sprite);
+            view.Initialize(
+    data.Id,
+    data.IconKey,
+    data.Category.ToString(),
+    sprite
+);
         }
 
         Debug.Log(
