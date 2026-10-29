@@ -18,16 +18,19 @@ public partial class Tables
     /// 测试表
     /// </summary>
     public TbTest TbTest {get; }
+    public waste.TbWasteItem TbWasteItem {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         TbTest = new TbTest(loader("tbtest"));
+        TbWasteItem = new waste.TbWasteItem(loader("waste_tbwasteitem"));
         ResolveRef();
     }
     
     private void ResolveRef()
     {
         TbTest.ResolveRef(this);
+        TbWasteItem.ResolveRef(this);
     }
 }
 

@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1001,
+    "koreanName": "투명 페트병",
+    "chineseName": "透明 PET 瓶",
+    "category": 1,
+    "iconKey": "pet_bottle",
+    "preprocessingSteps": [
+      1,
+      2
+    ],
+    "koreanExplanation": "내용물을 비우고 라벨을 제거하세요.",
+    "chineseExplanation": "请倒空内容物并移除标签。"
+  },
+  {
+    "id": 1002,
+    "koreanName": "플라스틱 용기",
+    "chineseName": "塑料容器",
+    "category": 2,
+    "iconKey": "plastic_container",
+    "preprocessingSteps": [
+      1
+    ],
+    "koreanExplanation": "",
+    "chineseExplanation": ""
+  },
+  {
+    "id": 1003,
+    "koreanName": "음료수 캔",
+    "chineseName": "饮料罐",
+    "category": 3,
+    "iconKey": "drink_can",
+    "preprocessingSteps": [
+      1
+    ],
+    "koreanExplanation": "",
+    "chineseExplanation": ""
+  },
+  {
+    "id": 1004,
+    "koreanName": "종이상자",
+    "chineseName": "纸箱",
+    "category": 4,
+    "iconKey": "cardboard",
+    "preprocessingSteps": [
+      5
+    ],
+    "koreanExplanation": "",
+    "chineseExplanation": ""
+  },
+  {
+    "id": 1005,
+    "koreanName": "바나나 껍질",
+    "chineseName": "香蕉皮",
+    "category": 5,
+    "iconKey": "banana_peel",
+    "preprocessingSteps": [],
+    "koreanExplanation": "",
+    "chineseExplanation": ""
+  },
+  {
+    "id": 1006,
+    "koreanName": "오염된 포장재",
+    "chineseName": "污染的包装材料",
+    "category": 6,
+    "iconKey": "dirty_packaging",
+    "preprocessingSteps": [],
+    "koreanExplanation": "",
+    "chineseExplanation": ""
+  }
+]
