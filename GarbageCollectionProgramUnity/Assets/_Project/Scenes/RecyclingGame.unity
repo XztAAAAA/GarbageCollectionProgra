@@ -211,7 +211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &175660417
 RectTransform:
   m_ObjectHideFlags: 0
@@ -879,6 +879,7 @@ GameObject:
   - component: {fileID: 560107964}
   - component: {fileID: 560107966}
   - component: {fileID: 560107965}
+  - component: {fileID: 560107967}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -947,6 +948,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560107963}
   m_CullTransparentMesh: 1
+--- !u!114 &560107967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560107963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b03301acc48c2e48a664e9f369ba054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteGameUI
+  stageProgressText: {fileID: 573527300}
+  remainingItemsText: {fileID: 2138272638}
+  slider: {fileID: 1342171186}
+  feedbackMessageText: {fileID: 1047606195}
 --- !u!1 &573527298
 GameObject:
   m_ObjectHideFlags: 0
@@ -981,8 +998,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 126.72681, y: -107}
-  m_SizeDelta: {x: 193.4536, y: 50}
+  m_AnchoredPosition: {x: 242.60674, y: -107}
+  m_SizeDelta: {x: 425.2135, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &573527300
 MonoBehaviour:
@@ -1886,6 +1903,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935173895}
   m_CullTransparentMesh: 1
+--- !u!1 &948797609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 948797611}
+  - component: {fileID: 948797610}
+  m_Layer: 0
+  m_Name: WasteGameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &948797610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948797609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8790a3d08c89e947a04ad911fef8fdf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteGameManager
+  currentStage: 1
+--- !u!4 &948797611
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948797609}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 591.9506, y: 1327.4542, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978841966
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,8 +2256,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 128.9999}
-  m_SizeDelta: {x: 475.0471, y: 50}
+  m_AnchoredPosition: {x: -0.0014801, y: 98.33499}
+  m_SizeDelta: {x: 896.78, y: 196.67}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1047606195
 MonoBehaviour:
@@ -2404,7 +2466,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1193500596
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2998,7 +3060,7 @@ MonoBehaviour:
   m_Direction: 0
   m_MinValue: 0
   m_MaxValue: 1
-  m_WholeNumbers: 1
+  m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3475,7 +3537,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1606939782
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4395,8 +4457,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -169.16254, y: -107}
-  m_SizeDelta: {x: 275.89514, y: 50}
+  m_AnchoredPosition: {x: -208.33905, y: -74.999}
+  m_SizeDelta: {x: 354.2481, y: 114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2138272638
 MonoBehaviour:
@@ -4507,3 +4569,4 @@ SceneRoots:
   - {fileID: 1603056575}
   - {fileID: 1218651008}
   - {fileID: 1766809320}
+  - {fileID: 948797611}

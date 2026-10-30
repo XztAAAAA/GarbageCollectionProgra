@@ -86,9 +86,13 @@ public class WasteItemSpawner : MonoBehaviour
     data.IconKey,
     data.Category,
     sprite
-);
+            );
         }
 
+        // 通知游戏管理器：本关垃圾物品已经全部生成
+        GameEventBus.Publish(
+            new WasteItemsSpawnedEvent(spawnedPositions.Count)
+        );
         Debug.Log(
             $"垃圾物品生成完成，共生成 {spawnedPositions.Count} 个。"
         );

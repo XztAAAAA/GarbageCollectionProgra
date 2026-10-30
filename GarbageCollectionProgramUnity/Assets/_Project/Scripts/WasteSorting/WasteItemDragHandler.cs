@@ -91,7 +91,7 @@ public class WasteItemDragHandler : MonoBehaviour,
     private void OnWasteDropResult(WasteDropResultEvent eventData)
     {
         // 只处理当前垃圾自身对应的事件。
-        if (eventData.ItemEntityId != GetEntityId())
+        if (eventData.ItemEntityId != gameObject.GetEntityId())
             return;
 
         dropAccepted = eventData.IsCorrect;

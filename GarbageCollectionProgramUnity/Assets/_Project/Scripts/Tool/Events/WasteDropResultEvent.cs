@@ -22,13 +22,13 @@ public readonly struct WasteDropResultEvent
     public bool IsCorrect { get; }
 
     public WasteDropResultEvent(
-        EntityId itemInstanceId,
+        EntityId itemEntityId,
         int itemId,
         cfg.waste.WasteCategory itemCategoryKey,
         cfg.waste.WasteCategory targetCategoryKey,
         bool isCorrect)
     {
-        ItemEntityId = itemInstanceId;
+        ItemEntityId = itemEntityId;
         ItemId = itemId;
         ItemCategoryKey = itemCategoryKey;
         TargetCategoryKey = targetCategoryKey;
