@@ -424,6 +424,7 @@ GameObject:
   - component: {fileID: 217189076}
   - component: {fileID: 217189078}
   - component: {fileID: 217189077}
+  - component: {fileID: 217189079}
   m_Layer: 5
   m_Name: Target_TransparentPET
   m_TagString: Untagged
@@ -489,6 +490,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217189075}
   m_CullTransparentMesh: 1
+--- !u!114 &217189079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217189075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 1
 --- !u!1 &307145336
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +514,7 @@ GameObject:
   - component: {fileID: 307145337}
   - component: {fileID: 307145339}
   - component: {fileID: 307145338}
+  - component: {fileID: 307145340}
   m_Layer: 5
   m_Name: Target_CanMetal
   m_TagString: Untagged
@@ -565,6 +580,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 307145336}
   m_CullTransparentMesh: 1
+--- !u!114 &307145340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307145336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 3
 --- !u!1 &356853519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1093,8 +1121,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -300.6086}
-  m_SizeDelta: {x: -80, y: -1174.9978}
+  m_AnchoredPosition: {x: 0, y: -306.95773}
+  m_SizeDelta: {x: -80, y: -1187.696}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &577376428
 MonoBehaviour:
@@ -1198,6 +1226,7 @@ GameObject:
   - component: {fileID: 617519275}
   - component: {fileID: 617519277}
   - component: {fileID: 617519276}
+  - component: {fileID: 617519278}
   m_Layer: 5
   m_Name: Target_GeneralWaste
   m_TagString: Untagged
@@ -1263,6 +1292,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 617519274}
   m_CullTransparentMesh: 1
+--- !u!114 &617519278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617519274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 6
 --- !u!1 &622496330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,6 +1316,7 @@ GameObject:
   - component: {fileID: 622496331}
   - component: {fileID: 622496333}
   - component: {fileID: 622496332}
+  - component: {fileID: 622496334}
   m_Layer: 5
   m_Name: Target_Plastic
   m_TagString: Untagged
@@ -1339,6 +1382,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 622496330}
   m_CullTransparentMesh: 1
+--- !u!114 &622496334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622496330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 2
 --- !u!1 &629830214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2252,6 +2308,7 @@ GameObject:
   - component: {fileID: 1122209599}
   - component: {fileID: 1122209601}
   - component: {fileID: 1122209600}
+  - component: {fileID: 1122209602}
   m_Layer: 5
   m_Name: Target_Paper
   m_TagString: Untagged
@@ -2317,6 +2374,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122209598}
   m_CullTransparentMesh: 1
+--- !u!114 &1122209602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122209598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 4
 --- !u!1 &1193500595
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,8 +3177,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -581.0364}
-  m_SizeDelta: {x: -80, y: 552.3927}
+  m_AnchoredPosition: {x: 0, y: -589.1995}
+  m_SizeDelta: {x: -80, y: 568.7191}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1461791493
 MonoBehaviour:
@@ -3566,8 +3636,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -39.241}
-  m_SizeDelta: {x: 0, y: 473.91}
+  m_AnchoredPosition: {x: 0, y: -43.323}
+  m_SizeDelta: {x: 0, y: 482.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1632810855
 MonoBehaviour:
@@ -3686,6 +3756,7 @@ GameObject:
   - component: {fileID: 1825594309}
   - component: {fileID: 1825594311}
   - component: {fileID: 1825594310}
+  - component: {fileID: 1825594312}
   m_Layer: 5
   m_Name: Target_FoodWaste
   m_TagString: Untagged
@@ -3751,6 +3822,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825594308}
   m_CullTransparentMesh: 1
+--- !u!114 &1825594312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825594308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 274d2666f18f7e044b12f83a64645164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
+  expectedCategoryKey: 5
 --- !u!1 &1852373819
 GameObject:
   m_ObjectHideFlags: 0

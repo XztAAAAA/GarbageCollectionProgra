@@ -84,7 +84,7 @@ public class WasteItemSpawner : MonoBehaviour
             view.Initialize(
     data.Id,
     data.IconKey,
-    data.Category.ToString(),
+    data.Category,
     sprite
 );
         }

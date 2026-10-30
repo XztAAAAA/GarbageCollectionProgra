@@ -10,7 +10,7 @@ public class WasteItemView : MonoBehaviour
     public string IconKey { get; private set; }
 
     // 使用 Luban 生成的枚举名称作为分类标识
-    public string CategoryKey { get; private set; }
+    public cfg.waste.WasteCategory CategoryKey { get; private set; }
 
     private void Awake()
     {
@@ -21,7 +21,7 @@ public class WasteItemView : MonoBehaviour
     public void Initialize(
         int itemId,
         string iconKey,
-        string categoryKey,
+        cfg.waste.WasteCategory categoryKey,
         Sprite sprite)
     {
         ItemId = itemId;
@@ -40,6 +40,6 @@ public class WasteItemView : MonoBehaviour
             : Color.white;
 
         gameObject.SetActive(true);
-        gameObject.name = itemId.ToString();
+        gameObject.name = itemId.ToString() + "_" + CategoryKey.ToString();
     }
 }
