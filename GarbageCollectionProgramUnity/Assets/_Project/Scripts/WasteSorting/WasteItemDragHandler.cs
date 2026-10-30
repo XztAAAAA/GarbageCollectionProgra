@@ -71,9 +71,30 @@ public class WasteItemDragHandler : MonoBehaviour,
         }
     }
 
-    public void SetDropResult(bool accepted)
+    private void OnEnable()
     {
-        dropAccepted = accepted;
+        GameEventBus.Subscribe<WasteDropResultEvent>(
+            OnWasteDropResult
+        );
+    }
+
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe<WasteDropResultEvent>(
+            OnWasteDropResult
+        );
+    }
+
+    /// <summary>
+    /// 监听垃圾分类结果事件。
+    /// </summary>
+    private void OnWasteDropResult(WasteDropResultEvent eventData)
+    {
+        // 只处理当前垃圾自身对应的事件。
+        if (eventData.ItemEntityId != GetEntityId())
+            return;
+
+        dropAccepted = eventData.IsCorrect;
     }
 
     public void OnEndDrag(PointerEventData eventData)
