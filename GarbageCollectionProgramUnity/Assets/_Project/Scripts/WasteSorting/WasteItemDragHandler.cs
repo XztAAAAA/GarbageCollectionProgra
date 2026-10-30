@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class WasteItemDragHandler : MonoBehaviour,
     IBeginDragHandler,
     IDragHandler,
-    IEndDragHandler
+    IEndDragHandler,
+    IPointerClickHandler
 {
     private RectTransform rectTransform;
     private RectTransform dragParent;
@@ -112,5 +113,34 @@ public class WasteItemDragHandler : MonoBehaviour,
         // 分类错误或没有放到目标区域：回到原位置。
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.SetSiblingIndex(originalSiblingIndex);
+    }
+
+    /// <summary>
+    /// 玩家点击垃圾物品时触发。
+    /// </summary>
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        WasteItemView itemView = GetComponent<WasteItemView>();
+
+        if (itemView == null)
+        {
+            Debug.LogError(
+                "[WasteItemDragHandler] 找不到 WasteItemView。",
+                this
+            );
+            return;
+        }
+
+        // 发布垃圾选中事件。
+        GameEventBus.Publish(
+            new WasteItemSelectedEvent(
+                GetEntityId(),
+                itemView.ItemId
+            )
+        );
+
+        Debug.Log(
+            $"选中垃圾 / 쓰레기 선택: ID = {itemView.ItemId} + _ + {itemView.CategoryKey}"
+        );
     }
 }
