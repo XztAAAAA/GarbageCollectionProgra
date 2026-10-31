@@ -3,7 +3,7 @@ using UnityEngine;
 
 /// <summary>
 /// 游戏流程管理器。
-/// 负责主界面、游戏界面和关卡结算界面的切换。
+/// 负责主界面、游戏界面、结算界面和关卡流程。
 /// </summary>
 public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
 {
@@ -14,10 +14,29 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
 
     private int currentLevelId = 1;
 
+    private bool isCurrentLevelCompleted;
+
     public int CurrentLevelId => currentLevelId;
 
     /// <summary>
-    /// 当前关卡是否为最后一关。
+    /// 是否存在可继续的游戏存档。
+    /// </summary>
+    public bool CanContinueGame
+    {
+        get
+        {
+            if (!WasteLevelProgress.HasContinueData)
+                return false;
+
+            int levelId = WasteLevelProgress.ContinueLevelId;
+            int totalLevels = TableSystem.Tables.TbLevel.DataList.Count;
+
+            return levelId >= 1 && levelId <= totalLevels;
+        }
+    }
+
+    /// <summary>
+    /// 当前是否为最后一关。
     /// </summary>
     public bool IsLastLevel
     {
@@ -51,10 +70,36 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
 
     /// <summary>
     /// 开始新游戏。
+    /// 重置原有的关卡进度。
     /// </summary>
     public void StartNewGame()
     {
+        WasteLevelProgress.ResetForNewGame();
+
         currentLevelId = 1;
+
+        StartCurrentLevel();
+    }
+
+    /// <summary>
+    /// 从存档中继续游戏。
+    /// </summary>
+    public void ContinueGame()
+    {
+        if (!CanContinueGame)
+        {
+            Debug.LogWarning(
+                "[WasteLevelFlowManager] 没有可继续的游戏存档。"
+            );
+            return;
+        }
+
+        currentLevelId = WasteLevelProgress.ContinueLevelId;
+
+        Debug.Log(
+            $"[WasteLevelFlowManager] 从存档继续第 {currentLevelId} 关。"
+        );
+
         StartCurrentLevel();
     }
 
@@ -63,12 +108,19 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     /// </summary>
     private void StartCurrentLevel()
     {
+        isCurrentLevelCompleted = false;
+
+        // 保存当前关卡
+        WasteLevelProgress.SaveCurrentLevel(currentLevelId);
+
+        // 先激活 GameplayPanel，让 Spawner 完成事件订阅
         SetPanelState(false, true, false);
 
         Debug.Log(
             $"[WasteLevelFlowManager] 开始第 {currentLevelId} 关。"
         );
 
+        // 通知垃圾生成系统开始生成
         GameEventBus.Publish(
             new WasteLevelStartRequestedEvent(currentLevelId)
         );
@@ -80,9 +132,24 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     private void OnWasteLevelCompleted(
         WasteLevelCompletedEvent eventData)
     {
+        if (isCurrentLevelCompleted)
+            return;
+
+        isCurrentLevelCompleted = true;
+
+        int totalLevels =
+            TableSystem.Tables.TbLevel.DataList.Count;
+
+        // 保存已完成关卡和下一关解锁情况
+        WasteLevelProgress.CompleteLevel(
+            currentLevelId,
+            totalLevels
+        );
+
         Debug.Log(
             $"[WasteLevelFlowManager] 第 {currentLevelId} 关完成。"
         );
+
         levelCompletePanel.GetComponent<WasteLevelCompleteUI>().OnLevelCompleted(eventData);
         ShowLevelComplete();
     }
@@ -92,7 +159,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     /// </summary>
     public void ShowLevelComplete()
     {
-        SetPanelState(false, true, true);
+        SetPanelState(false, false, true);
     }
 
     /// <summary>
@@ -100,12 +167,16 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     /// </summary>
     public void NextLevel()
     {
+        if (!isCurrentLevelCompleted)
+        {
+            Debug.LogWarning(
+                "[WasteLevelFlowManager] 当前关卡尚未完成。"
+            );
+            return;
+        }
+
         if (IsLastLevel)
         {
-            Debug.Log(
-                "[WasteLevelFlowManager] 已经完成全部关卡。"
-            );
-
             ShowMainMenu();
             return;
         }
@@ -128,7 +199,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     }
 
     /// <summary>
-    /// 统一控制界面显示。
+    /// 统一控制面板显示。
     /// </summary>
     private void SetPanelState(
         bool mainMenu,
