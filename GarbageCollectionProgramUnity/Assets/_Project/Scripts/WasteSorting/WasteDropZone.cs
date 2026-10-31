@@ -1,15 +1,23 @@
 
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/// <summary>
+/// 垃圾分类投放区域。
+/// 只负责接收玩家投放操作并发布请求事件。
+/// 不负责预处理检查和分类正确性判断。
+/// </summary>
 [RequireComponent(typeof(Image))]
 public class WasteDropZone : MonoBehaviour, IDropHandler
 {
     [Header("分类标识 / 분류 키")]
-    [SerializeField] private cfg.waste.WasteCategory expectedCategoryKey;
+    [SerializeField]
+    private cfg.waste.WasteCategory expectedCategoryKey;
 
+    /// <summary>
+    /// 玩家将垃圾拖入当前分类区域时触发。
+    /// </summary>
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag == null)
@@ -24,24 +32,22 @@ public class WasteDropZone : MonoBehaviour, IDropHandler
         if (itemView == null || dragHandler == null)
             return;
 
-        // 判断垃圾自身分类和当前投放目标是否一致。
-        bool isCorrect = itemView.CategoryKey == expectedCategoryKey;
-
-        // 通过事件中心分发结果，不直接调用其他组件。
+        // 发布投放尝试事件。
+        // 预处理检查和分类判断交由其他 Manager 处理。
         GameEventBus.Publish(
-            new WasteDropResultEvent(
+            new WasteDropAttemptEvent(
                 eventData.pointerDrag.GetEntityId(),
                 itemView.ItemId,
                 itemView.CategoryKey,
-                expectedCategoryKey,
-                isCorrect
+                expectedCategoryKey
             )
         );
 
         Debug.Log(
-            $"[WasteDropZone] 分类结果：{isCorrect}，" +
-            $"物品：{itemView.CategoryKey}，" +
-            $"目标：{expectedCategoryKey}"
+            $"[WasteDropZone] 投放请求：" +
+            $"ItemId = {itemView.ItemId}, " +
+            $"物品分类 = {itemView.CategoryKey}, " +
+            $"目标分类 = {expectedCategoryKey}"
         );
     }
 }

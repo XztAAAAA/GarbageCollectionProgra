@@ -1,19 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class WasteItemSpawner : MonoBehaviour
 {
     [Header("生成设置")]
     [SerializeField] private RectTransform itemContainer;
     [SerializeField] private WasteItemView itemPrefab;
-
-    [Header("测试数据 ID")]
-    [SerializeField]
-    private int[] itemIds =
-    {
-        1001, 1002, 1003, 1004, 1005, 1006
-    };
 
     [Header("物体尺寸")]
     [SerializeField]
@@ -47,16 +39,8 @@ public class WasteItemSpawner : MonoBehaviour
 
         var tables = TableSystem.Tables;
 
-        foreach (int id in itemIds)
+        foreach (var data in tables.TbWasteItem.DataList)
         {
-            var data = tables.TbWasteItem.Get(id);
-
-            if (data == null)
-            {
-                Debug.LogWarning($"未找到垃圾数据，ID：{id}");
-                continue;
-            }
-
             WasteItemView view = Instantiate(
                 itemPrefab,
                 itemContainer,
@@ -82,10 +66,17 @@ public class WasteItemSpawner : MonoBehaviour
             );
 
             view.Initialize(
-    data.Id,
-    data.IconKey,
-    data.Category,
-    sprite
+                data.Id,
+                data.IconKey,
+                data.Category,
+                sprite
+            );
+
+            GameEventBus.Publish(
+                new WasteItemSpawnedEvent(
+                    view.gameObject.GetEntityId(),
+                    data.Id
+                )
             );
         }
 

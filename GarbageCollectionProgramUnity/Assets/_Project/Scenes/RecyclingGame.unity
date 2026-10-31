@@ -361,6 +361,7 @@ GameObject:
   - component: {fileID: 210430394}
   - component: {fileID: 210430396}
   - component: {fileID: 210430395}
+  - component: {fileID: 210430397}
   m_Layer: 5
   m_Name: PreprocessPanel
   m_TagString: Untagged
@@ -429,6 +430,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210430393}
   m_CullTransparentMesh: 1
+--- !u!114 &210430397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 210430393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8ad43a7575ed4742846aae854e72487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WastePreprocessUI
+  titleText: {fileID: 1190561016}
+  descText: {fileID: 1247303223}
+  completeButton: {fileID: 1555907094}
+  completeButtonText: {fileID: 862146596}
 --- !u!1 &217189075
 GameObject:
   m_ObjectHideFlags: 0
@@ -519,6 +536,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WasteDropZone
   expectedCategoryKey: 1
+--- !u!1 &300975199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 300975201}
+  - component: {fileID: 300975200}
+  m_Layer: 0
+  m_Name: WastePreprocessManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &300975200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300975199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1dc5c6ecc09f4345ba44352db0a33c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WastePreprocessManager
+  preprocessPanel: {fileID: 210430397}
+--- !u!4 &300975201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 300975199}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 280.4109, y: 791.0861, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &307145336
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1272,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WasteItemSpawner
   itemContainer: {fileID: 577376427}
   itemPrefab: {fileID: 2066397502}
-  itemIds: e9030000ea030000eb030000ec030000ed030000ee030000
   itemSize: {x: 150, y: 150}
   minDistance: 170
 --- !u!1 &583096412
@@ -1928,8 +1989,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2459,8 +2520,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3076,8 +3137,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -4210,7 +4271,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 174.55066, y: -57.979065}
+  m_AnchoredPosition: {x: 174.55066, y: -57.979004}
   m_SizeDelta: {x: 306.9642, y: 71.9583}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1638230422
@@ -5058,3 +5119,4 @@ SceneRoots:
   - {fileID: 1218651008}
   - {fileID: 1766809320}
   - {fileID: 948797611}
+  - {fileID: 300975201}

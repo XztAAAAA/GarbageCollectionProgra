@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
@@ -16,6 +15,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
     private int totalItems;
     private int completedItems;
 
+    // 防止同一个垃圾被重复计分
     private readonly HashSet<EntityId> completedItemIds =
         new HashSet<EntityId>();
 
@@ -37,8 +37,8 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             OnWasteItemsSpawned
         );
 
-        GameEventBus.Subscribe<WasteDropResultEvent>(
-            OnWasteDropResult
+        GameEventBus.Subscribe<WasteClassificationRequestedEvent>(
+            OnWasteClassificationRequested
         );
     }
 
@@ -48,13 +48,13 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             OnWasteItemsSpawned
         );
 
-        GameEventBus.Unsubscribe<WasteDropResultEvent>(
-            OnWasteDropResult
+        GameEventBus.Unsubscribe<WasteClassificationRequestedEvent>(
+            OnWasteClassificationRequested
         );
     }
 
     /// <summary>
-    /// 接收垃圾生成完成事件。
+    /// 接收垃圾全部生成完成事件。
     /// </summary>
     private void OnWasteItemsSpawned(
         WasteItemsSpawnedEvent eventData)
@@ -72,6 +72,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
                 "분류할 쓰레기가 없습니다.",
                 "当前没有可分类的垃圾。"
             );
+
             return;
         }
 
@@ -82,22 +83,41 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
     }
 
     /// <summary>
-    /// 接收垃圾分类结果事件。
+    /// 接收已经通过预处理检查的分类请求。
+    /// 负责判断分类是否正确。
     /// </summary>
-    private void OnWasteDropResult(
-        WasteDropResultEvent eventData)
+    private void OnWasteClassificationRequested(
+        WasteClassificationRequestedEvent eventData)
     {
-        // 分类错误，不增加进度。
-        if (!eventData.IsCorrect)
+        // 比较垃圾实际分类和玩家选择的分类区域
+        bool isCorrect =
+            eventData.ItemCategoryKey == eventData.TargetCategoryKey;
+
+        // 通知拖拽脚本分类结果。
+        // 此时已经通过预处理检查，所以 RequiresPreprocessing 为 false。
+        GameEventBus.Publish(
+            new WasteDropResultEvent(
+                eventData.ItemEntityId,
+                eventData.ItemId,
+                eventData.ItemCategoryKey,
+                eventData.TargetCategoryKey,
+                isCorrect,
+                false
+            )
+        );
+
+        // 分类错误，不增加进度
+        if (!isCorrect)
         {
             PublishFeedback(
                 "분류가 올바르지 않아요. 다시 확인해 보세요.",
                 "分类不正确，请再检查一下。"
             );
+
             return;
         }
 
-        // 防止重复计分。
+        // 防止同一个垃圾重复计分
         if (!completedItemIds.Add(eventData.ItemEntityId))
             return;
 
@@ -108,6 +128,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
 
         PublishProgress();
 
+        // 判断关卡是否完成
         if (completedItems >= totalItems)
         {
             PublishFeedback(
@@ -139,7 +160,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
     }
 
     /// <summary>
-    /// 发布反馈信息事件。
+    /// 发布双语反馈信息事件。
     /// </summary>
     private void PublishFeedback(
         string korean,

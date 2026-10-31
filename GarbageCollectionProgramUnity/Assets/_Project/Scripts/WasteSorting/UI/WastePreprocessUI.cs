@@ -1,0 +1,128 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+/// <summary>
+/// 垃圾预处理 UI 管理器。
+/// 负责预处理面板的显示、文本更新和按钮交互。
+/// 不负责预处理步骤的具体逻辑。
+/// </summary>
+public class WastePreprocessUI : MonoBehaviour
+{
+    [Header("面板标题 / 패널 제목")]
+    [SerializeField] private TMP_Text titleText;
+
+    [Header("步骤说明 / 단계 설명")]
+    [SerializeField] private TMP_Text descText;
+
+    [Header("完成按钮 / 완료 버튼")]
+    [SerializeField] private Button completeButton;
+    [SerializeField] private TMP_Text completeButtonText;
+
+    // 当前面板对应的垃圾实体 ID
+    private EntityId currentItemEntityId;
+
+    // 是否存在正在处理的垃圾
+    private bool hasCurrentItem;
+
+    private void OnEnable()
+    {
+        if (completeButton != null)
+        {
+            completeButton.onClick.AddListener(
+                OnCompleteButtonClicked
+            );
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (completeButton != null)
+        {
+            completeButton.onClick.RemoveListener(
+                OnCompleteButtonClicked
+            );
+        }
+    }
+
+    /// <summary>
+    /// 接收预处理面板变化事件。
+    /// 只更新 UI 内容，不控制面板开关。
+    /// </summary>
+    public void OnPreprocessPanelChanged(
+        WastePreprocessPanelChangedEvent eventData)
+    {
+        // 面板关闭时，清除当前操作状态。
+        if (!eventData.IsVisible)
+        {
+            hasCurrentItem = false;
+
+            if (completeButton != null)
+            {
+                completeButton.interactable = false;
+            }
+
+            Debug.Log("[WastePreprocessUI] 收到面板关闭消息。");
+            return;
+        }
+
+        // 保存当前正在处理的垃圾 ID。
+        currentItemEntityId = eventData.ItemEntityId;
+        hasCurrentItem = true;
+
+        if (titleText != null)
+        {
+            titleText.text = "전처리 안내\n预处理说明";
+        }
+
+        if (descText != null)
+        {
+            descText.text = eventData.ContentText;
+        }
+
+        if (completeButtonText != null)
+        {
+            completeButtonText.text = eventData.ButtonText;
+        }
+
+        if (completeButton != null)
+        {
+            completeButton.interactable = true;
+        }
+
+        Debug.Log(
+            $"[WastePreprocessUI] 更新预处理内容，垃圾 ID：{currentItemEntityId}"
+        );
+    }
+
+    /// <summary>
+    /// 玩家点击完成按钮。
+    /// </summary>
+    private void OnCompleteButtonClicked()
+    {
+        if (!hasCurrentItem)
+        {
+            Debug.LogWarning(
+                "[WastePreprocessUI] 当前没有正在处理的垃圾。"
+            );
+            return;
+        }
+
+        // 防止连续点击
+        if (completeButton != null)
+        {
+            completeButton.interactable = false;
+        }
+
+        Debug.Log(
+            $"[WastePreprocessUI] 请求完成预处理步骤：{currentItemEntityId}"
+        );
+
+        // 通知 PreprocessManager 推进当前步骤
+        GameEventBus.Publish(
+            new PreprocessStepCompleteRequestedEvent(
+                currentItemEntityId
+            )
+        );
+    }
+}

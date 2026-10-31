@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -87,15 +88,23 @@ public class WasteItemDragHandler : MonoBehaviour,
     }
 
     /// <summary>
-    /// 监听垃圾分类结果事件。
+    /// 监听垃圾最终投放结果。
     /// </summary>
     private void OnWasteDropResult(WasteDropResultEvent eventData)
     {
-        // 只处理当前垃圾自身对应的事件。
-        if (eventData.ItemEntityId != gameObject.GetEntityId())
+        // 只处理当前垃圾自己的投放结果。
+        if (!EqualityComparer<EntityId>.Default.Equals(
+            eventData.ItemEntityId,
+            gameObject.GetEntityId()))
+        {
             return;
+        }
 
-        dropAccepted = eventData.IsCorrect;
+        // 只有真正分类正确，才能移除当前垃圾。
+        // 预处理未完成或分类错误，都需要复位。
+        dropAccepted =
+            eventData.IsCorrect &&
+            !eventData.RequiresPreprocessing;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -134,7 +143,7 @@ public class WasteItemDragHandler : MonoBehaviour,
         // 发布垃圾选中事件。
         GameEventBus.Publish(
             new WasteItemSelectedEvent(
-                GetEntityId(),
+                gameObject.GetEntityId(),
                 itemView.ItemId
             )
         );
