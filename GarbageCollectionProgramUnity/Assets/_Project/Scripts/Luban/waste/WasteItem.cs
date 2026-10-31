@@ -22,9 +22,8 @@ public sealed partial class WasteItem : Luban.BeanBase
         { if(!_buf["chineseName"].IsString) { throw new SerializationException(); }  ChineseName = _buf["chineseName"]; }
         { if(!_buf["category"].IsNumber) { throw new SerializationException(); }  Category = (waste.WasteCategory)_buf["category"].AsInt; }
         { if(!_buf["iconKey"].IsString) { throw new SerializationException(); }  IconKey = _buf["iconKey"]; }
+        { if(!_buf["newIconKey"].IsString) { throw new SerializationException(); }  NewIconKey = _buf["newIconKey"]; }
         { var __json0 = _buf["preprocessingSteps"]; if(!__json0.IsArray) { throw new SerializationException(); } PreprocessingSteps = new System.Collections.Generic.List<waste.PreprocessType>(__json0.Count); foreach(JSONNode __e0 in __json0.Children) { waste.PreprocessType __v0;  { if(!__e0.IsNumber) { throw new SerializationException(); }  __v0 = (waste.PreprocessType)__e0.AsInt; }  PreprocessingSteps.Add(__v0); }   }
-        { if(!_buf["koreanExplanation"].IsString) { throw new SerializationException(); }  KoreanExplanation = _buf["koreanExplanation"]; }
-        { if(!_buf["chineseExplanation"].IsString) { throw new SerializationException(); }  ChineseExplanation = _buf["chineseExplanation"]; }
     }
 
     public static WasteItem DeserializeWasteItem(JSONNode _buf)
@@ -53,17 +52,13 @@ public sealed partial class WasteItem : Luban.BeanBase
     /// </summary>
     public readonly string IconKey;
     /// <summary>
+    /// 预处理后的图片
+    /// </summary>
+    public readonly string NewIconKey;
+    /// <summary>
     /// 需要执行的预处理步骤
     /// </summary>
     public readonly System.Collections.Generic.List<waste.PreprocessType> PreprocessingSteps;
-    /// <summary>
-    /// 韩语说明
-    /// </summary>
-    public readonly string KoreanExplanation;
-    /// <summary>
-    /// 中文说明
-    /// </summary>
-    public readonly string ChineseExplanation;
    
     public const int __ID__ = -311151783;
     public override int GetTypeId() => __ID__;
@@ -80,9 +75,8 @@ public sealed partial class WasteItem : Luban.BeanBase
         + "chineseName:" + ChineseName + ","
         + "category:" + Category + ","
         + "iconKey:" + IconKey + ","
+        + "newIconKey:" + NewIconKey + ","
         + "preprocessingSteps:" + Luban.StringUtil.CollectionToString(PreprocessingSteps) + ","
-        + "koreanExplanation:" + KoreanExplanation + ","
-        + "chineseExplanation:" + ChineseExplanation + ","
         + "}";
     }
 }

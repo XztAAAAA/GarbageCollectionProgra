@@ -5,12 +5,11 @@
     "chineseName": "透明 PET 瓶",
     "category": 1,
     "iconKey": "pet_bottle",
+    "newIconKey": "pet_bottle_processed",
     "preprocessingSteps": [
       1,
       2
-    ],
-    "koreanExplanation": "내용물을 비우고 라벨을 제거하세요.",
-    "chineseExplanation": "请倒空内容物并移除标签。"
+    ]
   },
   {
     "id": 1002,
@@ -18,11 +17,10 @@
     "chineseName": "塑料容器",
     "category": 2,
     "iconKey": "plastic_container",
+    "newIconKey": "plastic_container_processed",
     "preprocessingSteps": [
       1
-    ],
-    "koreanExplanation": "",
-    "chineseExplanation": ""
+    ]
   },
   {
     "id": 1003,
@@ -30,11 +28,10 @@
     "chineseName": "饮料罐",
     "category": 3,
     "iconKey": "drink_can",
+    "newIconKey": "drink_can_processed",
     "preprocessingSteps": [
       1
-    ],
-    "koreanExplanation": "",
-    "chineseExplanation": ""
+    ]
   },
   {
     "id": 1004,
@@ -42,11 +39,10 @@
     "chineseName": "纸箱",
     "category": 4,
     "iconKey": "cardboard",
+    "newIconKey": "cardboard_processed",
     "preprocessingSteps": [
       5
-    ],
-    "koreanExplanation": "",
-    "chineseExplanation": ""
+    ]
   },
   {
     "id": 1005,
@@ -54,9 +50,8 @@
     "chineseName": "香蕉皮",
     "category": 5,
     "iconKey": "banana_peel",
-    "preprocessingSteps": [],
-    "koreanExplanation": "",
-    "chineseExplanation": ""
+    "newIconKey": "",
+    "preprocessingSteps": []
   },
   {
     "id": 1006,
@@ -64,8 +59,216 @@
     "chineseName": "污染的包装材料",
     "category": 6,
     "iconKey": "dirty_packaging",
-    "preprocessingSteps": [],
-    "koreanExplanation": "",
-    "chineseExplanation": ""
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1007,
+    "koreanName": "유색 페트병",
+    "chineseName": "有色 PET 瓶",
+    "category": 2,
+    "iconKey": "colored_pet_bottle",
+    "newIconKey": "colored_pet_bottle_done",
+    "preprocessingSteps": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": 1008,
+    "koreanName": "샴푸 용기",
+    "chineseName": "洗发水瓶",
+    "category": 2,
+    "iconKey": "shampoo_bottle",
+    "newIconKey": "shampoo_bottle_done",
+    "preprocessingSteps": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 1009,
+    "koreanName": "세제 용기",
+    "chineseName": "洗衣液瓶",
+    "category": 2,
+    "iconKey": "detergent_bottle",
+    "newIconKey": "detergent_bottle_done",
+    "preprocessingSteps": [
+      4,
+      3
+    ]
+  },
+  {
+    "id": 1010,
+    "koreanName": "요구르트병",
+    "chineseName": "酸奶瓶",
+    "category": 2,
+    "iconKey": "yogurt_bottle",
+    "newIconKey": "yogurt_bottle_done",
+    "preprocessingSteps": [
+      1,
+      2
+    ]
+  },
+  {
+    "id": 1011,
+    "koreanName": "배달 음식 용기",
+    "chineseName": "外卖塑料餐盒",
+    "category": 2,
+    "iconKey": "delivery_container",
+    "newIconKey": "delivery_container_done",
+    "preprocessingSteps": [
+      1
+    ]
+  },
+  {
+    "id": 1012,
+    "koreanName": "플라스틱 식품 트레이",
+    "chineseName": "塑料食品托盘",
+    "category": 2,
+    "iconKey": "plastic_food_tray",
+    "newIconKey": "plastic_food_tray_done",
+    "preprocessingSteps": [
+      1
+    ]
+  },
+  {
+    "id": 1013,
+    "koreanName": "비닐봉투",
+    "chineseName": "塑料购物袋",
+    "category": 2,
+    "iconKey": "plastic_bag",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1014,
+    "koreanName": "과자 봉지",
+    "chineseName": "零食包装袋",
+    "category": 6,
+    "iconKey": "snack_wrapper",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1015,
+    "koreanName": "스티로폼 완충재",
+    "chineseName": "泡沫缓冲材料",
+    "category": 2,
+    "iconKey": "styrofoam_cushion",
+    "newIconKey": "styrofoam_cushion_done",
+    "preprocessingSteps": [
+      3
+    ]
+  },
+  {
+    "id": 1016,
+    "koreanName": "치약 튜브",
+    "chineseName": "牙膏管",
+    "category": 6,
+    "iconKey": "toothpaste_tube",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1017,
+    "koreanName": "알루미늄 캔",
+    "chineseName": "铝制饮料罐",
+    "category": 3,
+    "iconKey": "aluminum_can",
+    "newIconKey": "aluminum_can_done",
+    "preprocessingSteps": [
+      1,
+      5
+    ]
+  },
+  {
+    "id": 1018,
+    "koreanName": "참치 캔",
+    "chineseName": "金枪鱼罐头",
+    "category": 3,
+    "iconKey": "tuna_can",
+    "newIconKey": "tuna_can_done",
+    "preprocessingSteps": [
+      1,
+      3
+    ]
+  },
+  {
+    "id": 1019,
+    "koreanName": "신문지",
+    "chineseName": "报纸",
+    "category": 4,
+    "iconKey": "newspaper",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1020,
+    "koreanName": "스프링 노트",
+    "chineseName": "螺旋笔记本",
+    "category": 4,
+    "iconKey": "spiral_notebook",
+    "newIconKey": "spiral_notebook_done",
+    "preprocessingSteps": [
+      3
+    ]
+  },
+  {
+    "id": 1021,
+    "koreanName": "택배 상자",
+    "chineseName": "快递纸箱",
+    "category": 4,
+    "iconKey": "delivery_box",
+    "newIconKey": "delivery_box_done",
+    "preprocessingSteps": [
+      3,
+      5
+    ]
+  },
+  {
+    "id": 1022,
+    "koreanName": "종이 달걀판",
+    "chineseName": "纸质鸡蛋托",
+    "category": 4,
+    "iconKey": "paper_egg_carton",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1023,
+    "koreanName": "사과 껍질",
+    "chineseName": "苹果皮",
+    "category": 5,
+    "iconKey": "apple_peel",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1024,
+    "koreanName": "당근 잎",
+    "chineseName": "胡萝卜叶",
+    "category": 5,
+    "iconKey": "carrot_leaves",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1025,
+    "koreanName": "생선 뼈",
+    "chineseName": "鱼骨",
+    "category": 6,
+    "iconKey": "fish_bones",
+    "newIconKey": "",
+    "preprocessingSteps": []
+  },
+  {
+    "id": 1026,
+    "koreanName": "사용한 휴지",
+    "chineseName": "使用过的纸巾",
+    "category": 6,
+    "iconKey": "used_tissue",
+    "newIconKey": "",
+    "preprocessingSteps": []
   }
 ]
