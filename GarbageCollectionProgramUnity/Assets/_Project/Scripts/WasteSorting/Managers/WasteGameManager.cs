@@ -31,6 +31,8 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             ? (float)completedItems / totalItems
             : 0f;
 
+    private bool isLevelCompleted;
+
     private void OnEnable()
     {
         GameEventBus.Subscribe<WasteItemsSpawnedEvent>(
@@ -64,6 +66,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
 
         completedItemIds.Clear();
 
+        isLevelCompleted = false;
         PublishProgress();
 
         if (totalItems == 0)
@@ -128,12 +131,20 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
 
         PublishProgress();
 
-        // 判断关卡是否完成
-        if (completedItems >= totalItems)
+        if (completedItems >= totalItems && !isLevelCompleted)
         {
+            isLevelCompleted = true;
+
             PublishFeedback(
                 "모든 쓰레기를 분류했어요! 잘했어요!",
                 "所有垃圾都分类完成了！做得很好！"
+            );
+
+            GameEventBus.Publish(
+                new WasteLevelCompletedEvent(
+                    totalItems,
+                    completedItems
+                )
             );
         }
         else
