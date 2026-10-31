@@ -159,7 +159,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     /// </summary>
     public void ShowLevelComplete()
     {
-        SetPanelState(false, false, true);
+        SetPanelState(false, true, true);
     }
 
     /// <summary>

@@ -25,6 +25,8 @@ public class WasteMainMenuUI : MonoBehaviour
     [SerializeField]
     private Button exitButton;
 
+    private float continueButtonTextOriginalAlpha = 1f;
+
     private void Awake()
     {
         // 自动获取继续游戏按钮的 TMP 文字
@@ -32,6 +34,12 @@ public class WasteMainMenuUI : MonoBehaviour
         {
             continueButtonText =
                 continueButton.GetComponentInChildren<TMP_Text>(true);
+        }
+
+        if (continueButtonText != null)
+        {
+            continueButtonTextOriginalAlpha =
+                continueButtonText.color.a;
         }
     }
 
@@ -96,6 +104,19 @@ public class WasteMainMenuUI : MonoBehaviour
         bool canContinue = flowManager.CanContinueGame;
 
         continueButton.interactable = canContinue;
+
+        if (continueButtonText != null)
+        {
+            ColorBlock colors = continueButton.colors;
+            float targetAlpha = continueButtonTextOriginalAlpha *
+                (canContinue ? 1f : colors.disabledColor.a);
+
+            continueButtonText.CrossFadeAlpha(
+                targetAlpha,
+                colors.fadeDuration,
+                true
+            );
+        }
 
         if (continueButtonText == null)
             return;
