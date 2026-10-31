@@ -55,7 +55,7 @@ public class WasteItemSpawner : MonoBehaviour
     {
         if (itemContainer == null || itemPrefab == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WasteItemSpawner] 请绑定 Container 和 Prefab。",
                 this
             );
@@ -67,7 +67,7 @@ public class WasteItemSpawner : MonoBehaviour
 
         if (levelData == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 $"[WasteItemSpawner] 找不到关卡配置：{levelId}"
             );
             return;
@@ -80,7 +80,7 @@ public class WasteItemSpawner : MonoBehaviour
 
         spawnedPositions.Clear();
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteItemSpawner] 开始生成第 {levelId} 关：" +
             $"{levelData.LevelName}"
         );
@@ -96,7 +96,7 @@ public class WasteItemSpawner : MonoBehaviour
             new WasteItemsSpawnedEvent(spawnedItems.Count)
         );
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteItemSpawner] 第 {levelId} 关生成完成，" +
             $"共生成 {spawnedItems.Count} 个垃圾。"
         );
@@ -111,7 +111,7 @@ public class WasteItemSpawner : MonoBehaviour
 
         if (data == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 $"[WasteItemSpawner] 找不到垃圾配置：{itemId}"
             );
             return;

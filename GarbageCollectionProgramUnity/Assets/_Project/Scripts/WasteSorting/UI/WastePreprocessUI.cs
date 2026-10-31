@@ -39,7 +39,7 @@ public class WastePreprocessUI : MonoBehaviour
     {
         if (completionProgressImage == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WastePreprocessUI] 没有绑定处理进度 Image。",
                 this
             );
@@ -93,7 +93,7 @@ public class WastePreprocessUI : MonoBehaviour
                 completeButton.interactable = false;
             }
 
-            Debug.Log("[WastePreprocessUI] 收到面板关闭消息。");
+            CommonTool.Log("[WastePreprocessUI] 收到面板关闭消息。");
             return;
         }
 
@@ -136,7 +136,7 @@ public class WastePreprocessUI : MonoBehaviour
             StartStepProcessing();
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessUI] 更新预处理内容，垃圾 ID：{currentItemEntityId}"
         );
     }
@@ -148,7 +148,7 @@ public class WastePreprocessUI : MonoBehaviour
     {
         if (!hasCurrentItem)
         {
-            Debug.LogWarning(
+            CommonTool.LogWarning(
                 "[WastePreprocessUI] 当前没有正在处理的垃圾。"
             );
             return;
@@ -169,7 +169,7 @@ public class WastePreprocessUI : MonoBehaviour
             completeButtonText.text = "진행 중...\n正在进行中...";
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessUI] 开始处理预处理流程：{currentItemEntityId}"
         );
 
@@ -220,7 +220,7 @@ public class WastePreprocessUI : MonoBehaviour
             yield break;
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessUI] 请求完成当前预处理步骤：{itemEntityId}"
         );
 

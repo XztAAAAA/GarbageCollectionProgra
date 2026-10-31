@@ -111,7 +111,7 @@ public class WasteMainMenuUI : MonoBehaviour
                 "이어하기\n继续游戏";
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteMainMenuUI] 继续游戏按钮状态：{canContinue}"
         );
     }
@@ -123,7 +123,7 @@ public class WasteMainMenuUI : MonoBehaviour
     {
         if (flowManager == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WasteMainMenuUI] 没有绑定 WasteLevelFlowManager。",
                 this
             );
@@ -156,7 +156,7 @@ public class WasteMainMenuUI : MonoBehaviour
     private void OnExitClicked()
     {
 #if UNITY_EDITOR
-        Debug.Log(
+        CommonTool.Log(
             "[WasteMainMenuUI] 编辑器中无法直接退出游戏。"
         );
 #else

@@ -46,7 +46,7 @@ public class WasteItemDragHandler : MonoBehaviour,
     {
         if (rootCanvas == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WasteItemDragHandler] 没有找到 Canvas。",
                 this
             );
@@ -56,7 +56,7 @@ public class WasteItemDragHandler : MonoBehaviour,
         dragParent = rectTransform.parent as RectTransform;
         if (dragParent == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WasteItemDragHandler] 垃圾物体没有 RectTransform 父物体。",
                 this
             );
@@ -119,7 +119,7 @@ public class WasteItemDragHandler : MonoBehaviour,
 
         if (releasedInsideContainer)
         {
-            Debug.Log(
+            CommonTool.Log(
                 "[WasteItemDragHandler] 垃圾仍在 Container 内，保留当前位置。",
                 this
             );
@@ -138,7 +138,7 @@ public class WasteItemDragHandler : MonoBehaviour,
         rectTransform.anchoredPosition = originalPosition;
         rectTransform.SetSiblingIndex(originalSiblingIndex);
 
-        Debug.Log(
+        CommonTool.Log(
             "[WasteItemDragHandler] 垃圾未正确放入分类区域，返回拖动前的位置。",
             this
         );
@@ -180,7 +180,7 @@ public class WasteItemDragHandler : MonoBehaviour,
 
         if (itemView == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WasteItemDragHandler] 找不到 WasteItemView。",
                 this
             );
@@ -194,7 +194,7 @@ public class WasteItemDragHandler : MonoBehaviour,
             )
         );
 
-        Debug.Log(
+        CommonTool.Log(
             $"选中垃圾 / 쓰레기 선택: ID = {itemView.ItemId} + _ + {itemView.CategoryKey}"
         );
     }

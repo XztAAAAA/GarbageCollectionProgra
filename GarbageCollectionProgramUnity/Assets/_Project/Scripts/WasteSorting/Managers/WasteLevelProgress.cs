@@ -55,7 +55,7 @@ public static class WasteLevelProgress
 
         PlayerPrefs.Save();
 
-        Debug.Log("[WasteLevelProgress] 新游戏存档已初始化。");
+        CommonTool.Log("[WasteLevelProgress] 新游戏存档已初始化。");
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public static class WasteLevelProgress
 
         PlayerPrefs.Save();
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelProgress] 已保存当前关卡：{levelId}"
         );
     }
@@ -135,7 +135,7 @@ public static class WasteLevelProgress
 
         PlayerPrefs.Save();
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelProgress] 第 {completedLevelId} 关完成，存档已更新。"
         );
     }
@@ -153,6 +153,6 @@ public static class WasteLevelProgress
 
         PlayerPrefs.Save();
 
-        Debug.Log("[WasteLevelProgress] 关卡存档已清除。");
+        CommonTool.Log("[WasteLevelProgress] 关卡存档已清除。");
     }
 }

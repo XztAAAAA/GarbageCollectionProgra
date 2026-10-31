@@ -45,7 +45,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
     {
         if (preprocessPanel == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WastePreprocessManager] PreprocessPanel 未绑定。",
                 this
             );
@@ -116,7 +116,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
     {
         if (preprocessPanel == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 "[WastePreprocessManager] PreprocessPanel 未绑定。",
                 this
             );
@@ -126,7 +126,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         preprocessPanel.gameObject.SetActive(eventData.IsVisible);
         preprocessPanel.OnPreprocessPanelChanged(eventData);
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] PreprocessPanel 状态：{eventData.IsVisible}"
         );
     }
@@ -141,7 +141,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
     {
         if (itemStates.ContainsKey(eventData.ItemEntityId))
         {
-            Debug.LogWarning(
+            CommonTool.LogWarning(
                 $"[WastePreprocessManager] 垃圾已经初始化：" +
                 $"{eventData.ItemId}"
             );
@@ -154,7 +154,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
 
         if (data == null)
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 $"[WastePreprocessManager] 找不到垃圾数据：" +
                 $"{eventData.ItemId}"
             );
@@ -188,7 +188,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             state
         );
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] 初始化垃圾：" +
             $"{state.KoreanName} / {state.ChineseName}，" +
             $"预处理步骤：{state.Steps.Count}"
@@ -205,7 +205,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
     private void OnWasteItemSelected(
     WasteItemSelectedEvent eventData)
     {
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] 收到垃圾点击事件：" +
             $"ItemId = {eventData.ItemId}, " +
             $"EntityId = {eventData.ItemEntityId}"
@@ -216,7 +216,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             eventData.ItemEntityId,
             out ItemPreprocessState state))
         {
-            Debug.LogWarning(
+            CommonTool.LogWarning(
                 $"[WastePreprocessManager] 垃圾尚未初始化：" +
                 $"ItemId = {eventData.ItemId}, " +
                 $"当前状态数量 = {itemStates.Count}"
@@ -225,7 +225,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             return;
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] 找到垃圾预处理状态：" +
             $"步骤总数 = {state.Steps.Count}, " +
             $"当前步骤 = {state.CurrentStepIndex}, " +
@@ -240,7 +240,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
                 "这件垃圾已经可以直接分类。"
             );
 
-            Debug.Log(
+            CommonTool.Log(
                 "[WastePreprocessManager] 该垃圾不需要预处理，不打开面板。"
             );
 
@@ -251,7 +251,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         activeItemEntityId = eventData.ItemEntityId;
         hasActiveItem = true;
 
-        Debug.Log(
+        CommonTool.Log(
             "[WastePreprocessManager] 准备显示预处理面板。"
         );
 
@@ -275,7 +275,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             eventData.ItemEntityId,
             out ItemPreprocessState state))
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 $"[WastePreprocessManager] 投放校验失败，" +
                 $"垃圾状态未初始化：{eventData.ItemId}"
             );
@@ -291,7 +291,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         // 如果还没有完成预处理，拒绝本次投放。
         if (!state.IsCompleted)
         {
-            Debug.Log(
+            CommonTool.Log(
                 $"[WastePreprocessManager] 尚未完成预处理，" +
                 $"拒绝投放：{eventData.ItemId}"
             );
@@ -305,7 +305,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         }
 
         // 预处理已完成，允许进入正式分类判断。
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] 预处理检查通过：" +
             $"{eventData.ItemId}"
         );
@@ -378,7 +378,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         // 完成当前步骤。
         state.CurrentStepIndex++;
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WastePreprocessManager] 步骤进度：" +
             $"{state.CurrentStepIndex}/{state.Steps.Count}"
         );
@@ -435,7 +435,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             out string koreanDescription,
             out string chineseDescription))
         {
-            Debug.LogError(
+            CommonTool.LogError(
                 $"[WastePreprocessManager] 未处理的步骤类型：{step}"
             );
             return;

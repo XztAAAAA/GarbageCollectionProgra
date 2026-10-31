@@ -22,7 +22,7 @@ public static class GameEventBus
     {
         if (callback == null)
         {
-            Debug.LogError("[GameEventBus] 订阅失败：回调为空。");
+            CommonTool.LogError("[GameEventBus] 订阅失败：回调为空。");
             return;
         }
 
@@ -88,7 +88,7 @@ public static class GameEventBus
             catch (Exception exception)
             {
                 // 一个监听者出现异常，不影响其他监听者接收事件。
-                Debug.LogException(exception);
+                CommonTool.LogException(exception);
             }
         }
     }

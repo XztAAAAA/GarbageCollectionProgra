@@ -92,25 +92,25 @@ public class WasteLevelCompleteUI : MonoBehaviour
     private void CheckReferences()
     {
         if (flowManager == null)
-            Debug.LogError("[WasteLevelCompleteUI] FlowManager 未绑定。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] FlowManager 未绑定。", this);
 
         if (titleText == null)
-            Debug.LogError("[WasteLevelCompleteUI] TitleText 未绑定。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] TitleText 未绑定。", this);
 
         if (resultText == null)
-            Debug.LogError("[WasteLevelCompleteUI] ResultText 未绑定。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] ResultText 未绑定。", this);
 
         if (nextLevelButton == null)
-            Debug.LogError("[WasteLevelCompleteUI] NextLevelButton 未绑定。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] NextLevelButton 未绑定。", this);
 
         if (nextLevelButtonText == null)
-            Debug.LogError("[WasteLevelCompleteUI] NextLevelButtonText 未找到。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] NextLevelButtonText 未找到。", this);
 
         if (mainMenuButton == null)
-            Debug.LogError("[WasteLevelCompleteUI] MainMenuButton 未绑定。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] MainMenuButton 未绑定。", this);
 
         if (mainMenuButtonText == null)
-            Debug.LogError("[WasteLevelCompleteUI] MainMenuButtonText 未找到。", this);
+            CommonTool.LogError("[WasteLevelCompleteUI] MainMenuButtonText 未找到。", this);
     }
 
     /// <summary>
@@ -172,7 +172,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
                 "메인 메뉴\n返回主界面";
         }
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelCompleteUI] " +
             $"第 {levelId} 关结算内容更新完成，" +
             $"完成数量：{eventData.CompletedItems}/{eventData.TotalItems}"

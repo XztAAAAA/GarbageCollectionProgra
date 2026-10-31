@@ -88,7 +88,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     {
         if (!CanContinueGame)
         {
-            Debug.LogWarning(
+            CommonTool.LogWarning(
                 "[WasteLevelFlowManager] 没有可继续的游戏存档。"
             );
             return;
@@ -96,7 +96,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
 
         currentLevelId = WasteLevelProgress.ContinueLevelId;
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelFlowManager] 从存档继续第 {currentLevelId} 关。"
         );
 
@@ -116,7 +116,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
         // 先激活 GameplayPanel，让 Spawner 完成事件订阅
         SetPanelState(false, true, false);
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelFlowManager] 开始第 {currentLevelId} 关。"
         );
 
@@ -146,7 +146,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
             totalLevels
         );
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteLevelFlowManager] 第 {currentLevelId} 关完成。"
         );
 
@@ -169,7 +169,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     {
         if (!isCurrentLevelCompleted)
         {
-            Debug.LogWarning(
+            CommonTool.LogWarning(
                 "[WasteLevelFlowManager] 当前关卡尚未完成。"
             );
             return;
@@ -193,7 +193,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
     {
         SetPanelState(true, false, false);
 
-        Debug.Log(
+        CommonTool.Log(
             "[WasteLevelFlowManager] 返回主界面。"
         );
     }

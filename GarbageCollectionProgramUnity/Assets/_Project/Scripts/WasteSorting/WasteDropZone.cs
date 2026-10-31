@@ -43,7 +43,7 @@ public class WasteDropZone : MonoBehaviour, IDropHandler
             )
         );
 
-        Debug.Log(
+        CommonTool.Log(
             $"[WasteDropZone] 投放请求：" +
             $"ItemId = {itemView.ItemId}, " +
             $"物品分类 = {itemView.CategoryKey}, " +
