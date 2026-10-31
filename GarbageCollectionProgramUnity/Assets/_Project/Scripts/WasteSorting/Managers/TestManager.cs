@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEngine;
 
 public class TestManager : MonoBehaviour
@@ -49,3 +50,4 @@ public class TestManager : MonoBehaviour
         );
     }
 }
+#endif
