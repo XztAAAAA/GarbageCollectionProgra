@@ -35,6 +35,10 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
 
     private void OnEnable()
     {
+        GameEventBus.Subscribe<WasteLevelStartRequestedEvent>(
+            OnWasteLevelStartRequested
+        );
+
         GameEventBus.Subscribe<WasteItemsSpawnedEvent>(
             OnWasteItemsSpawned
         );
@@ -46,6 +50,10 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
 
     private void OnDisable()
     {
+        GameEventBus.Unsubscribe<WasteLevelStartRequestedEvent>(
+            OnWasteLevelStartRequested
+        );
+
         GameEventBus.Unsubscribe<WasteItemsSpawnedEvent>(
             OnWasteItemsSpawned
         );
@@ -53,6 +61,16 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         GameEventBus.Unsubscribe<WasteClassificationRequestedEvent>(
             OnWasteClassificationRequested
         );
+    }
+
+    private void OnWasteLevelStartRequested(
+        WasteLevelStartRequestedEvent eventData)
+    {
+        currentStage = Mathf.Max(1, eventData.LevelId);
+        completedItems = 0;
+        totalItems = 0;
+        completedItemIds.Clear();
+        isLevelCompleted = false;
     }
 
     /// <summary>

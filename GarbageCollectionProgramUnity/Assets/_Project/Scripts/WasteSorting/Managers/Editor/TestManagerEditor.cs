@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,6 +10,26 @@ public class TestManagerEditor : Editor
         DrawDefaultInspector();
 
         EditorGUILayout.Space();
+
+        using (new EditorGUI.DisabledScope(!Application.isPlaying))
+        {
+            if (GUILayout.Button("一键过关"))
+            {
+                var method = typeof(TestManager).GetMethod(
+                    "CompleteCurrentLevel",
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic
+                );
+
+                if (method != null)
+                {
+                    method.Invoke((TestManager)target, null);
+                }
+                else
+                {
+                    Debug.LogWarning("TestManager 中不存在 CompleteCurrentLevel 方法，无法执行一键过关。");
+                }
+            }
+        }
 
         if (GUILayout.Button("清除关卡存档"))
         {
