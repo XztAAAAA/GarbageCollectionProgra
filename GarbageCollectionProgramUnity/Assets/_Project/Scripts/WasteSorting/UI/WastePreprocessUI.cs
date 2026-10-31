@@ -24,6 +24,8 @@ public class WastePreprocessUI : MonoBehaviour
     [Header("步骤处理时间 / 단계 처리 시간")]
     [SerializeField, Min(0f)] private float completionDelay = 2f;
 
+    [SerializeField] private Image completionProgressImage;
+
     // 当前面板对应的垃圾实体 ID
     private EntityId currentItemEntityId;
 
@@ -32,6 +34,24 @@ public class WastePreprocessUI : MonoBehaviour
 
     private Coroutine completionCoroutine;
     private bool isProcessing;
+
+    private void Awake()
+    {
+        if (completionProgressImage == null)
+        {
+            Debug.LogError(
+                "[WastePreprocessUI] 没有绑定处理进度 Image。",
+                this
+            );
+            return;
+        }
+
+        completionProgressImage.type = Image.Type.Filled;
+        completionProgressImage.fillMethod = Image.FillMethod.Horizontal;
+        completionProgressImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+        completionProgressImage.raycastTarget = false;
+        completionProgressImage.fillAmount = 1f;
+    }
 
     private void OnEnable()
     {
@@ -161,6 +181,9 @@ public class WastePreprocessUI : MonoBehaviour
         if (!hasCurrentItem || completionCoroutine != null)
             return;
 
+        if (completionProgressImage != null)
+            completionProgressImage.fillAmount = 0f;
+
         completionCoroutine = StartCoroutine(
             CompleteStepAfterDelay(currentItemEntityId)
         );
@@ -168,9 +191,24 @@ public class WastePreprocessUI : MonoBehaviour
 
     private IEnumerator CompleteStepAfterDelay(EntityId itemEntityId)
     {
-        yield return new WaitForSecondsRealtime(
-            Mathf.Max(0f, completionDelay)
-        );
+        float duration = Mathf.Max(0f, completionDelay);
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+
+            if (completionProgressImage != null)
+            {
+                completionProgressImage.fillAmount =
+                    Mathf.Clamp01(elapsed / duration);
+            }
+
+            yield return null;
+        }
+
+        if (completionProgressImage != null)
+            completionProgressImage.fillAmount = 1f;
 
         completionCoroutine = null;
 
@@ -202,5 +240,8 @@ public class WastePreprocessUI : MonoBehaviour
         }
 
         isProcessing = false;
+
+        if (completionProgressImage != null)
+            completionProgressImage.fillAmount = 1f;
     }
 }
