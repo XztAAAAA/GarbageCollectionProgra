@@ -19,11 +19,13 @@ public partial class Tables
     /// </summary>
     public TbTest TbTest {get; }
     public waste.TbWasteItem TbWasteItem {get; }
+    public waste.TbLevel TbLevel {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         TbTest = new TbTest(loader("tbtest"));
         TbWasteItem = new waste.TbWasteItem(loader("waste_tbwasteitem"));
+        TbLevel = new waste.TbLevel(loader("waste_tblevel"));
         ResolveRef();
     }
     
@@ -31,6 +33,7 @@ public partial class Tables
     {
         TbTest.ResolveRef(this);
         TbWasteItem.ResolveRef(this);
+        TbLevel.ResolveRef(this);
     }
 }
 

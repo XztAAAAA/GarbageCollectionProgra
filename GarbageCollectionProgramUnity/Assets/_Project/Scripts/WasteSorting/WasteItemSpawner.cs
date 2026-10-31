@@ -1,28 +1,57 @@
+
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 垃圾生成器。
+/// 根据关卡配置生成指定的垃圾物品。
+/// </summary>
 public class WasteItemSpawner : MonoBehaviour
 {
-    [Header("生成设置")]
+    [Header("生成设置 / 생성 설정")]
     [SerializeField] private RectTransform itemContainer;
     [SerializeField] private WasteItemView itemPrefab;
 
-    [Header("物体尺寸")]
+    [Header("物体尺寸 / 오브젝트 크기")]
     [SerializeField]
-    private Vector2 itemSize =
-        new Vector2(150f, 150f);
+    private Vector2 itemSize = new Vector2(150f, 150f);
 
     [SerializeField] private float minDistance = 170f;
 
     private readonly List<Vector2> spawnedPositions =
         new List<Vector2>();
 
-    private void Start()
+    // 当前由本 Spawner 生成的垃圾实例
+    private readonly List<GameObject> spawnedItems =
+        new List<GameObject>();
+
+    private void OnEnable()
     {
-        SpawnItems();
+        GameEventBus.Subscribe<WasteLevelStartRequestedEvent>(
+            OnLevelStartRequested
+        );
     }
 
-    private void SpawnItems()
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe<WasteLevelStartRequestedEvent>(
+            OnLevelStartRequested
+        );
+    }
+
+    /// <summary>
+    /// 收到关卡开始请求。
+    /// </summary>
+    private void OnLevelStartRequested(
+        WasteLevelStartRequestedEvent eventData)
+    {
+        SpawnLevelItems(eventData.LevelId);
+    }
+
+    /// <summary>
+    /// 根据关卡 ID 生成对应垃圾。
+    /// </summary>
+    private void SpawnLevelItems(int levelId)
     {
         if (itemContainer == null || itemPrefab == null)
         {
@@ -33,77 +62,142 @@ public class WasteItemSpawner : MonoBehaviour
             return;
         }
 
+        // 读取关卡数据
+        var levelData = TableSystem.Tables.TbLevel.Get(levelId);
+
+        if (levelData == null)
+        {
+            Debug.LogError(
+                $"[WasteItemSpawner] 找不到关卡配置：{levelId}"
+            );
+            return;
+        }
+
+        // 清理上一关生成的垃圾
+        ClearSpawnedItems();
+
         Canvas.ForceUpdateCanvases();
 
         spawnedPositions.Clear();
 
-        var tables = TableSystem.Tables;
+        Debug.Log(
+            $"[WasteItemSpawner] 开始生成第 {levelId} 关：" +
+            $"{levelData.LevelName}"
+        );
 
-        foreach (var data in tables.TbWasteItem.DataList)
+        // 根据关卡配置的垃圾 ID 列表生成
+        foreach (int itemId in levelData.WasteItemIds)
         {
-            WasteItemView view = Instantiate(
-                itemPrefab,
-                itemContainer,
-                false
-            );
-
-            RectTransform rect = view.GetComponent<RectTransform>();
-
-            // 以容器中心为基准自由分布。
-            rect.anchorMin = new Vector2(0.5f, 0.5f);
-            rect.anchorMax = new Vector2(0.5f, 0.5f);
-            rect.pivot = new Vector2(0.5f, 0.5f);
-            rect.sizeDelta = itemSize;
-            rect.localScale = Vector3.one;
-
-            Vector2 position = GetRandomPosition();
-            rect.anchoredPosition = position;
-            spawnedPositions.Add(position);
-
-            // 图片先尝试加载；没有资源时使用占位图形。
-            Sprite sprite = Resources.Load<Sprite>(
-                $"WasteItems/{data.IconKey}"
-            );
-
-            view.Initialize(
-                data.Id,
-                data.IconKey,
-                data.Category,
-                sprite
-            );
-
-            GameEventBus.Publish(
-                new WasteItemSpawnedEvent(
-                    view.gameObject.GetEntityId(),
-                    data.Id
-                )
-            );
+            SpawnSingleItem(itemId);
         }
 
-        // 通知游戏管理器：本关垃圾物品已经全部生成
+        // 通知游戏管理器：本关垃圾已经全部生成
         GameEventBus.Publish(
-            new WasteItemsSpawnedEvent(spawnedPositions.Count)
+            new WasteItemsSpawnedEvent(spawnedItems.Count)
         );
+
         Debug.Log(
-            $"垃圾物品生成完成，共生成 {spawnedPositions.Count} 个。"
+            $"[WasteItemSpawner] 第 {levelId} 关生成完成，" +
+            $"共生成 {spawnedItems.Count} 个垃圾。"
         );
     }
 
+    /// <summary>
+    /// 生成单个垃圾物品。
+    /// </summary>
+    private void SpawnSingleItem(int itemId)
+    {
+        var data = TableSystem.Tables.TbWasteItem.Get(itemId);
+
+        if (data == null)
+        {
+            Debug.LogError(
+                $"[WasteItemSpawner] 找不到垃圾配置：{itemId}"
+            );
+            return;
+        }
+
+        WasteItemView view = Instantiate(
+            itemPrefab,
+            itemContainer,
+            false
+        );
+
+        RectTransform rect = view.GetComponent<RectTransform>();
+
+        // 以容器中心为基准自由分布
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = itemSize;
+        rect.localScale = Vector3.one;
+
+        // 获取随机位置
+        Vector2 position = GetRandomPosition();
+
+        rect.anchoredPosition = position;
+        spawnedPositions.Add(position);
+
+        // 加载垃圾图片
+        Sprite sprite = Resources.Load<Sprite>(
+            $"WasteItems/{data.IconKey}"
+        );
+
+        // 初始化垃圾物品
+        view.Initialize(
+            data.Id,
+            data.IconKey,
+            data.Category,
+            sprite
+        );
+
+        spawnedItems.Add(view.gameObject);
+
+        // 通知预处理管理器初始化垃圾状态
+        GameEventBus.Publish(
+            new WasteItemSpawnedEvent(
+                view.gameObject.GetEntityId(),
+                data.Id
+            )
+        );
+    }
+
+    /// <summary>
+    /// 清理上一关生成的垃圾。
+    /// </summary>
+    private void ClearSpawnedItems()
+    {
+        foreach (GameObject item in spawnedItems)
+        {
+            if (item != null)
+            {
+                Destroy(item);
+            }
+        }
+
+        spawnedItems.Clear();
+        spawnedPositions.Clear();
+    }
+
+    /// <summary>
+    /// 获取随机位置，并尽量避免物体重叠。
+    /// </summary>
     private Vector2 GetRandomPosition()
     {
         float halfWidth = Mathf.Max(
             0f,
-            itemContainer.rect.width * 0.5f - itemSize.x * 0.5f
+            itemContainer.rect.width * 0.5f -
+            itemSize.x * 0.5f
         );
 
         float halfHeight = Mathf.Max(
             0f,
-            itemContainer.rect.height * 0.5f - itemSize.y * 0.5f
+            itemContainer.rect.height * 0.5f -
+            itemSize.y * 0.5f
         );
 
         Vector2 candidate = Vector2.zero;
 
-        // 尝试避免新物体和已有物体靠得太近。
         for (int attempt = 0; attempt < 50; attempt++)
         {
             candidate = new Vector2(
@@ -128,7 +222,7 @@ public class WasteItemSpawner : MonoBehaviour
             }
         }
 
-        // 空间不足时仍然生成，不阻止关卡运行。
+        // 空间不足时仍然生成
         return candidate;
     }
 }

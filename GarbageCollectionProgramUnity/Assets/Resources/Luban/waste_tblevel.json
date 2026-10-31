@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "levelName": "",
+    "description": "",
+    "wasteItemIds": [
+      1001,
+      1002,
+      1005
+    ]
+  },
+  {
+    "id": 2,
+    "levelName": "",
+    "description": "",
+    "wasteItemIds": [
+      1001,
+      1002,
+      1003,
+      1000
+    ]
+  },
+  {
+    "id": 3,
+    "levelName": "",
+    "description": "",
+    "wasteItemIds": [
+      1001,
+      1002,
+      1003,
+      1004,
+      1005,
+      1006
+    ]
+  }
+]
