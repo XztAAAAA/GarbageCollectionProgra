@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,11 +21,17 @@ public class WastePreprocessUI : MonoBehaviour
     [SerializeField] private Button completeButton;
     [SerializeField] private TMP_Text completeButtonText;
 
+    [Header("步骤处理时间 / 단계 처리 시간")]
+    [SerializeField, Min(0f)] private float completionDelay = 2f;
+
     // 当前面板对应的垃圾实体 ID
     private EntityId currentItemEntityId;
 
     // 是否存在正在处理的垃圾
     private bool hasCurrentItem;
+
+    private Coroutine completionCoroutine;
+    private bool isProcessing;
 
     private void OnEnable()
     {
@@ -37,6 +45,8 @@ public class WastePreprocessUI : MonoBehaviour
 
     private void OnDisable()
     {
+        StopPendingCompletion();
+
         if (completeButton != null)
         {
             completeButton.onClick.RemoveListener(
@@ -56,6 +66,7 @@ public class WastePreprocessUI : MonoBehaviour
         if (!eventData.IsVisible)
         {
             hasCurrentItem = false;
+            StopPendingCompletion();
 
             if (completeButton != null)
             {
@@ -64,6 +75,14 @@ public class WastePreprocessUI : MonoBehaviour
 
             Debug.Log("[WastePreprocessUI] 收到面板关闭消息。");
             return;
+        }
+
+        if (hasCurrentItem &&
+            !EqualityComparer<EntityId>.Default.Equals(
+                currentItemEntityId,
+                eventData.ItemEntityId))
+        {
+            StopPendingCompletion();
         }
 
         // 保存当前正在处理的垃圾 ID。
@@ -82,12 +101,19 @@ public class WastePreprocessUI : MonoBehaviour
 
         if (completeButtonText != null)
         {
-            completeButtonText.text = eventData.ButtonText;
+            completeButtonText.text = isProcessing
+                ? "진행 중...\n正在进行中..."
+                : eventData.ButtonText;
         }
 
         if (completeButton != null)
         {
-            completeButton.interactable = true;
+            completeButton.interactable = !isProcessing;
+        }
+
+        if (isProcessing && completionCoroutine == null)
+        {
+            StartStepProcessing();
         }
 
         Debug.Log(
@@ -108,21 +134,73 @@ public class WastePreprocessUI : MonoBehaviour
             return;
         }
 
-        // 防止连续点击
+        if (isProcessing)
+            return;
+
+        isProcessing = true;
+
         if (completeButton != null)
         {
             completeButton.interactable = false;
         }
 
+        if (completeButtonText != null)
+        {
+            completeButtonText.text = "진행 중...\n正在进行中...";
+        }
+
         Debug.Log(
-            $"[WastePreprocessUI] 请求完成预处理步骤：{currentItemEntityId}"
+            $"[WastePreprocessUI] 开始处理预处理流程：{currentItemEntityId}"
         );
 
-        // 通知 PreprocessManager 推进当前步骤
+        StartStepProcessing();
+    }
+
+    private void StartStepProcessing()
+    {
+        if (!hasCurrentItem || completionCoroutine != null)
+            return;
+
+        completionCoroutine = StartCoroutine(
+            CompleteStepAfterDelay(currentItemEntityId)
+        );
+    }
+
+    private IEnumerator CompleteStepAfterDelay(EntityId itemEntityId)
+    {
+        yield return new WaitForSecondsRealtime(
+            Mathf.Max(0f, completionDelay)
+        );
+
+        completionCoroutine = null;
+
+        if (!hasCurrentItem ||
+            !EqualityComparer<EntityId>.Default.Equals(
+                currentItemEntityId,
+                itemEntityId))
+        {
+            yield break;
+        }
+
+        Debug.Log(
+            $"[WastePreprocessUI] 请求完成当前预处理步骤：{itemEntityId}"
+        );
+
         GameEventBus.Publish(
             new PreprocessStepCompleteRequestedEvent(
-                currentItemEntityId
+                itemEntityId
             )
         );
+    }
+
+    private void StopPendingCompletion()
+    {
+        if (completionCoroutine != null)
+        {
+            StopCoroutine(completionCoroutine);
+            completionCoroutine = null;
+        }
+
+        isProcessing = false;
     }
 }
