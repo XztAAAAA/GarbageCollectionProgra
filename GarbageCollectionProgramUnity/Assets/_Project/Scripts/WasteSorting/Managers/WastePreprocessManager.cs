@@ -447,11 +447,11 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         string content =
             $"<align=center>" +
             $"<size=115%><b>{state.KoreanName}</b></size>\n" +
-            $"<size=85%><color=#718176>{state.ChineseName}</color></size>\n\n" +
+            $"<size=85%><color=#718176>{state.ChineseName}</color></size>\n" +
             $"<size=90%>{currentStep}/{totalSteps} 단계 · " +
-            $"第 {currentStep}/{totalSteps} 步</size>\n\n" +
+            $"第 {currentStep}/{totalSteps} 步</size>\n" +
             $"<size=110%><b>{koreanTitle}</b></size>\n" +
-            $"<color=#718176>{chineseTitle}</color>\n\n" +
+            $"<color=#718176>{chineseTitle}</color>\n" +
             $"{koreanDescription}\n" +
             $"<color=#718176>{chineseDescription}</color>" +
             $"</align>";
