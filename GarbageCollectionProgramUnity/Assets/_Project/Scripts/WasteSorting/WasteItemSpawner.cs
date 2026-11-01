@@ -138,17 +138,12 @@ public class WasteItemSpawner : MonoBehaviour
         rect.anchoredPosition = position;
         spawnedPositions.Add(position);
 
-        // 加载垃圾图片
-        // Resources.Load 路径必须相对于 Resources 文件夹，且不能包含扩展名。
-        // 对应资源应位于 Assets/Resources/_Project/UI/Item/ 下。
-        Sprite sprite = Resources.Load<Sprite>(
-            $"UI/Item/{data.IconKey}"
-        );
+        Sprite sprite = CommonTool.LoadItemSprite(data.IconKey);
 
         if (sprite == null)
         {
             CommonTool.LogError(
-                $"[WasteItemSpawner] 无法加载图片：UI/Item/{data.IconKey}。" +
+                $"[WasteItemSpawner] 无法加载图片：{data.IconKey}。" +
                 "请确认资源位于 Assets/Resources/UI/Item/ 下。",
                 this
             );

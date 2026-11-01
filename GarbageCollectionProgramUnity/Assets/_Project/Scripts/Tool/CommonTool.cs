@@ -41,6 +41,37 @@ public class CommonTool
         Time.timeScale = value;
     }
 
+    public static Sprite LoadItemSprite(string iconKey)
+    {
+        if (string.IsNullOrWhiteSpace(iconKey))
+        {
+            LogError("Cannot load an item sprite with an empty icon key.");
+            return null;
+        }
+
+        return Resources.Load<Sprite>($"UI/Item/{iconKey}");
+    }
+
+    public static void PlaySound(
+        AudioSource audioSource,
+        AudioClip audioClip,
+        float volumeScale = 1f)
+    {
+        if (audioSource == null)
+        {
+            LogError("Cannot play a sound without an AudioSource.");
+            return;
+        }
+
+        if (audioClip == null)
+        {
+            LogError("Cannot play a null AudioClip.", audioSource);
+            return;
+        }
+
+        audioSource.PlayOneShot(audioClip, volumeScale);
+    }
+
     public static void LoadScene(string path)
     {
         if (string.IsNullOrWhiteSpace(path))

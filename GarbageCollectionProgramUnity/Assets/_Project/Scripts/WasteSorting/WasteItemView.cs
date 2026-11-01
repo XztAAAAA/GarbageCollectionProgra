@@ -51,7 +51,7 @@ public class WasteItemView : MonoBehaviour
         if (!eventData.IsVisible && eventData.ItemEntityId == gameObject.GetEntityId())
         {
             var data = TableSystem.Tables.TbWasteItem.Get(ItemId);
-            Sprite sprite = Resources.Load<Sprite>($"UI/Item/{data.NewIconKey}");
+            Sprite sprite = CommonTool.LoadItemSprite(data.NewIconKey);
             SetImage(sprite);
         }
     }
