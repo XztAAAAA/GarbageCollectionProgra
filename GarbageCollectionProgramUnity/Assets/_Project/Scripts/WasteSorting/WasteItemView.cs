@@ -32,14 +32,16 @@ public class WasteItemView : MonoBehaviour
             itemImage = GetComponent<Image>();
 
         itemImage.sprite = sprite;
+        if (sprite != null)
+            itemImage.SetNativeSize();
         itemImage.preserveAspect = true;
         itemImage.raycastTarget = true;
-
         itemImage.color = sprite == null
             ? new Color(0.75f, 0.85f, 0.75f, 0.8f)
             : Color.white;
 
         gameObject.SetActive(true);
+        gameObject.transform.localScale = Vector3.one * 0.13f;
         gameObject.name = itemId.ToString() + "_" + CategoryKey.ToString();
     }
 }
