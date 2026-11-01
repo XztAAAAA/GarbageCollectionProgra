@@ -28,10 +28,8 @@
     "chineseName": "饮料罐",
     "category": 3,
     "iconKey": "drink_can",
-    "newIconKey": "drink_can_processed",
-    "preprocessingSteps": [
-      1
-    ]
+    "newIconKey": "",
+    "preprocessingSteps": []
   },
   {
     "id": 1004,
@@ -39,10 +37,8 @@
     "chineseName": "纸箱",
     "category": 4,
     "iconKey": "cardboard",
-    "newIconKey": "cardboard_processed",
-    "preprocessingSteps": [
-      5
-    ]
+    "newIconKey": "",
+    "preprocessingSteps": []
   },
   {
     "id": 1005,
@@ -176,11 +172,8 @@
     "chineseName": "铝制饮料罐",
     "category": 3,
     "iconKey": "aluminum_can",
-    "newIconKey": "aluminum_can_done",
-    "preprocessingSteps": [
-      1,
-      5
-    ]
+    "newIconKey": "",
+    "preprocessingSteps": []
   },
   {
     "id": 1018,

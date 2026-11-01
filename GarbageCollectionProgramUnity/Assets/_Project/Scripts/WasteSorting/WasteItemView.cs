@@ -18,6 +18,20 @@ public class WasteItemView : MonoBehaviour
             itemImage = GetComponent<Image>();
     }
 
+    private void OnEnable()
+    {
+        GameEventBus.Subscribe<WastePreprocessPanelChangedEvent>(
+            SetImage
+        );
+    }
+
+    private void OnDisable()
+    {
+        GameEventBus.Unsubscribe<WastePreprocessPanelChangedEvent>(
+            SetImage
+        );
+    }
+
     public void Initialize(
         int itemId,
         string iconKey,
@@ -28,6 +42,22 @@ public class WasteItemView : MonoBehaviour
         IconKey = iconKey;
         CategoryKey = categoryKey;
 
+        SetImage(sprite);
+        gameObject.name = itemId.ToString() + "_" + CategoryKey.ToString();
+    }
+
+    private void SetImage(WastePreprocessPanelChangedEvent eventData)
+    {
+        if (!eventData.IsVisible && eventData.ItemEntityId == gameObject.GetEntityId())
+        {
+            var data = TableSystem.Tables.TbWasteItem.Get(ItemId);
+            Sprite sprite = Resources.Load<Sprite>($"UI/Item/{data.NewIconKey}");
+            SetImage(sprite);
+        }
+    }
+
+    public void SetImage(Sprite sprite)
+    {
         if (itemImage == null)
             itemImage = GetComponent<Image>();
 
@@ -42,6 +72,5 @@ public class WasteItemView : MonoBehaviour
 
         gameObject.SetActive(true);
         gameObject.transform.localScale = Vector3.one * 0.13f;
-        gameObject.name = itemId.ToString() + "_" + CategoryKey.ToString();
     }
 }
