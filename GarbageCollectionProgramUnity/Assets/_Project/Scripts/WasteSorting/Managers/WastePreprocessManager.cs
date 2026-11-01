@@ -123,8 +123,24 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             return;
         }
 
+        int? itemId = null;
+        if (itemStates.TryGetValue(
+            eventData.ItemEntityId,
+            out ItemPreprocessState state))
+        {
+            itemId = state.ItemId;
+        }
+        else if (eventData.IsVisible)
+        {
+            CommonTool.LogError(
+                $"[WastePreprocessManager] 找不到垃圾预处理状态，无法传递配置 ID：" +
+                $"{eventData.ItemEntityId}"
+            );
+            return;
+        }
+
         preprocessPanel.gameObject.SetActive(eventData.IsVisible);
-        preprocessPanel.OnPreprocessPanelChanged(eventData);
+        preprocessPanel.OnPreprocessPanelChanged(eventData, itemId);
 
         CommonTool.Log(
             $"[WastePreprocessManager] PreprocessPanel 状态：{eventData.IsVisible}"
@@ -446,14 +462,12 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
 
         string content =
             $"<align=center>" +
-            $"<size=115%><b>{state.KoreanName}</b></size>\n" +
-            $"<size=85%><color=#718176>{state.ChineseName}</color></size>\n" +
-            $"<size=90%>{currentStep}/{totalSteps} 단계 · " +
-            $"第 {currentStep}/{totalSteps} 步</size>\n" +
-            $"<size=110%><b>{koreanTitle}</b></size>\n" +
-            $"<color=#718176>{chineseTitle}</color>\n" +
-            $"{koreanDescription}\n" +
-            $"<color=#718176>{chineseDescription}</color>" +
+            $"<size=82%><color=#718176>{currentStep} / {totalSteps} 단계 · " +
+            $"第 {currentStep} / {totalSteps} 步</color></size>\n" +
+            $"<size=118%><b>{koreanTitle}</b></size>" +
+            $"<size=88%><color=#718176>{chineseTitle}</color></size>\n" +
+            $"<line-height=115%>{koreanDescription}</line-height>" +
+            $"<size=90%><color=#718176>{chineseDescription}</color></size>" +
             $"</align>";
 
         GameEventBus.Publish(
