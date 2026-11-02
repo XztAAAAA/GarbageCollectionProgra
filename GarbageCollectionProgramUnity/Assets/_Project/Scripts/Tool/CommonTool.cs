@@ -58,8 +58,8 @@ public class CommonTool
     }
 
     public static void PlaySound(
+        AudioClip audioClip, 
         AudioSource audioSource,
-        AudioClip audioClip,
         float volumeScale = 1f)
     {
         if (audioSource == null)
@@ -75,6 +75,33 @@ public class CommonTool
         }
 
         audioSource.PlayOneShot(audioClip, volumeScale);
+    }
+
+    public static void PlaySound(
+        string audioClipPath,
+        AudioSource audioSource = null,
+        float volumeScale = 1f)
+    {
+        audioSource = audioSource ?? GetClickAudioSource();
+
+        if (string.IsNullOrWhiteSpace(audioClipPath))
+        {
+            LogError("Cannot play a sound with an empty audio clip path.");
+            return;
+        }
+
+        AudioClip audioClip = Resources.Load<AudioClip>($"Sound/{audioClipPath}");
+        if (audioClip == null)
+        {
+            LogError(
+                $"Cannot load the audio clip at " +
+                $"Resources/Sound/{audioClipPath}.",
+                audioSource
+            );
+            return;
+        }
+
+        PlaySound(audioClip, audioSource, volumeScale);
     }
 
     public static void PlayClickSound()
@@ -94,7 +121,7 @@ public class CommonTool
             return;
         }
 
-        PlaySound(GetClickAudioSource(), defaultClickSound);
+        PlaySound(defaultClickSound, GetClickAudioSource());
     }
 
     private static AudioSource GetClickAudioSource()
