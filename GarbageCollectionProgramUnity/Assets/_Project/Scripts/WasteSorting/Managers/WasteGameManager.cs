@@ -115,7 +115,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             eventData.ItemCategoryKey == eventData.TargetCategoryKey;
 
         CommonTool.PlaySound(
-            isCorrect ? "ui_reward_open" : "ui_wrong"
+            isCorrect ? "ui_reward_open" : "ui_wrong", 0.5f
         );
 
         // 通知拖拽脚本分类结果。

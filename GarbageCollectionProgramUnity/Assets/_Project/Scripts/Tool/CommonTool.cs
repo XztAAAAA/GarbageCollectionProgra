@@ -6,8 +6,11 @@ public class CommonTool
 {
     private const string DefaultClickSoundPath = "Sound/ui_btn_click";
     private const string ClickAudioSourceObjectName = "CommonTool Click Audio Source";
+    private const string BackgroundMusicAudioSourceObjectName =
+        "CommonTool Background Music Audio Source";
     private static AudioClip defaultClickSound;
     private static AudioSource clickAudioSource;
+    private static AudioSource backgroundMusicAudioSource;
 
     public static void Log(object message, UnityEngine.Object context = null)
     {
@@ -57,7 +60,7 @@ public class CommonTool
         return Resources.Load<Sprite>($"UI/Item/{iconKey}");
     }
 
-    public static void PlaySound(
+    private static void PlaySound(
         AudioClip audioClip, 
         AudioSource audioSource,
         float volumeScale = 1f)
@@ -79,8 +82,8 @@ public class CommonTool
 
     public static void PlaySound(
         string audioClipPath,
-        AudioSource audioSource = null,
-        float volumeScale = 1f)
+        float volumeScale = 1f,
+        AudioSource audioSource = null)
     {
         audioSource = audioSource ?? GetClickAudioSource();
 
@@ -124,6 +127,41 @@ public class CommonTool
         PlaySound(defaultClickSound, GetClickAudioSource());
     }
 
+    public static void PlayBackgroundMusic(
+        string audioClipPath,
+        float volumeScale = 0.2f)
+    {
+        if (string.IsNullOrWhiteSpace(audioClipPath))
+        {
+            LogError("Cannot play background music with an empty audio clip path.");
+            return;
+        }
+
+        AudioClip audioClip =
+            Resources.Load<AudioClip>($"Sound/{audioClipPath}");
+        if (audioClip == null)
+        {
+            LogError(
+                $"Cannot load the background music at " +
+                $"Resources/Sound/{audioClipPath}."
+            );
+            return;
+        }
+
+        AudioSource audioSource = GetBackgroundMusicAudioSource();
+        audioSource.volume = Mathf.Clamp01(volumeScale);
+
+        if (audioSource.clip == audioClip && audioSource.isPlaying)
+        {
+            return;
+        }
+
+        audioSource.Stop();
+        audioSource.clip = audioClip;
+        audioSource.loop = true;
+        audioSource.Play();
+    }
+
     private static AudioSource GetClickAudioSource()
     {
         if (clickAudioSource != null)
@@ -150,6 +188,37 @@ public class CommonTool
         clickAudioSource.spatialBlend = 0f;
 
         return clickAudioSource;
+    }
+
+    private static AudioSource GetBackgroundMusicAudioSource()
+    {
+        if (backgroundMusicAudioSource != null)
+        {
+            return backgroundMusicAudioSource;
+        }
+
+        GameObject audioSourceObject =
+            GameObject.Find(BackgroundMusicAudioSourceObjectName);
+        if (audioSourceObject == null)
+        {
+            audioSourceObject =
+                new GameObject(BackgroundMusicAudioSourceObjectName);
+            UnityEngine.Object.DontDestroyOnLoad(audioSourceObject);
+        }
+
+        backgroundMusicAudioSource =
+            audioSourceObject.GetComponent<AudioSource>();
+        if (backgroundMusicAudioSource == null)
+        {
+            backgroundMusicAudioSource =
+                audioSourceObject.AddComponent<AudioSource>();
+        }
+
+        backgroundMusicAudioSource.playOnAwake = false;
+        backgroundMusicAudioSource.loop = true;
+        backgroundMusicAudioSource.spatialBlend = 0f;
+
+        return backgroundMusicAudioSource;
     }
 
     public static void LoadScene(string path)

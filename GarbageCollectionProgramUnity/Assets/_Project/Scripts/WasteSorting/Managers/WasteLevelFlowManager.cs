@@ -65,6 +65,7 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
 
     private void Start()
     {
+        CommonTool.PlayBackgroundMusic("lilvillage", 0.1f);
         ShowMainMenu();
     }
 
