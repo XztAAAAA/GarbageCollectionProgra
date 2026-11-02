@@ -16,7 +16,7 @@ public class LocalizedTextMeshProUGUIEditor : TMP_EditorPanelUI
             serializedObject.FindProperty("languageKey"),
             new GUIContent("Language Key")
         );
-        serializedObject.ApplyModifiedProperties();
+        bool keyChanged = serializedObject.ApplyModifiedProperties();
 
         if (targets.Length != 1)
         {
@@ -25,6 +25,11 @@ public class LocalizedTextMeshProUGUIEditor : TMP_EditorPanelUI
 
         LocalizedTextMeshProUGUI localizedText =
             (LocalizedTextMeshProUGUI)target;
+        if (keyChanged)
+        {
+            localizedText.RefreshLocalizedText();
+        }
+
         if (localizedText.TryGetLocalizedText(
             out string previewText,
             out string error))

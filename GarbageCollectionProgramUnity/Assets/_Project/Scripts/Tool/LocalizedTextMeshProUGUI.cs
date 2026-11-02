@@ -16,12 +16,6 @@ public class LocalizedTextMeshProUGUI : TextMeshProUGUI
         RefreshLocalizedText();
     }
 
-    protected override void OnValidate()
-    {
-        base.OnValidate();
-        RefreshLocalizedText();
-    }
-
     public bool TryGetLocalizedText(
         out string localizedText,
         out string error)
@@ -46,7 +40,7 @@ public class LocalizedTextMeshProUGUI : TextMeshProUGUI
         return true;
     }
 
-    private void RefreshLocalizedText()
+    public void RefreshLocalizedText()
     {
         if (string.IsNullOrWhiteSpace(languageKey))
         {
