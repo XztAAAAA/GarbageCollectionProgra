@@ -13,7 +13,7 @@ public class CommonButton : Button
             IsInteractable()
         )
         {
-            CommonTool.PlayClickSound();
+            AudioTool.PlayClickSound();
         }
 
         base.OnPointerClick(eventData);
@@ -23,7 +23,7 @@ public class CommonButton : Button
     {
         if (IsActive() && IsInteractable())
         {
-            CommonTool.PlayClickSound();
+            AudioTool.PlayClickSound();
         }
 
         base.OnSubmit(eventData);

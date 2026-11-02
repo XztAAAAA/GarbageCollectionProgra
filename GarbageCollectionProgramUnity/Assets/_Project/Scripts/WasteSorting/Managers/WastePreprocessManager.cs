@@ -404,7 +404,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         {
             state.IsCompleted = true;
 
-            CommonTool.PlaySound("level_rush_move");
+            AudioTool.PlaySound("level_rush_move");
 
             // 关闭当前预处理面板。
             PublishPanelClosed(activeItemEntityId);

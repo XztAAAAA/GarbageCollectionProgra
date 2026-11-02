@@ -159,7 +159,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
     public void OnLevelCompleted(
         WasteLevelCompletedEvent eventData)
     {
-        CommonTool.PlaySound("level_rush_arrive");
+        AudioTool.PlaySound("level_rush_arrive");
         if (flowManager == null)
             return;
 

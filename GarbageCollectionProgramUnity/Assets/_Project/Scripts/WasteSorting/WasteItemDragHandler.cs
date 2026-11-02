@@ -63,7 +63,7 @@ public class WasteItemDragHandler : MonoBehaviour,
             return;
         }
 
-        CommonTool.PlaySound("drop");
+        AudioTool.PlaySound("drop");
         // 如果 Inspector 没有绑定 Container，则默认使用垃圾当前的直接父物体。
         // 当前生成结构为 WasteItemContainer 的直接子物体时，无需额外绑定。
         if (wasteItemContainer == null)

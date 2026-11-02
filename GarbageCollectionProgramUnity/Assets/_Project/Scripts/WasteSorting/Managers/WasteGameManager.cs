@@ -114,7 +114,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         bool isCorrect =
             eventData.ItemCategoryKey == eventData.TargetCategoryKey;
 
-        CommonTool.PlaySound(
+        AudioTool.PlaySound(
             isCorrect ? "ui_reward_open" : "ui_wrong", 0.5f
         );
 
