@@ -29,6 +29,11 @@ public class TestManagerEditor : Editor
                     Debug.LogWarning("TestManager 中不存在 CompleteCurrentLevel 方法，无法执行一键过关。");
                 }
             }
+
+            if (GUILayout.Button("跳转到指定关卡"))
+            {
+                ((TestManager)target).JumpToTargetLevel();
+            }
         }
 
         if (GUILayout.Button("清除关卡存档"))

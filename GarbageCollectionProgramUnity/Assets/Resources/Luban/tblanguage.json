@@ -5,19 +5,9 @@
     "koreanText": "분리배출 탐험대"
   },
   {
-    "id": "game_subtitle",
-    "chineseText": "垃圾分类冒险",
-    "koreanText": "분리배출 모험"
-  },
-  {
-    "id": "game_tagline",
-    "chineseText": "为地球做一点小小的努力！",
-    "koreanText": "지구를 위한 작은 실천!"
-  },
-  {
     "id": "menu_start",
-    "chineseText": "开始游戏",
-    "koreanText": "게임 시작"
+    "chineseText": "开始新游戏",
+    "koreanText": "새 게임 시작"
   },
   {
     "id": "menu_continue",
@@ -25,19 +15,39 @@
     "koreanText": "이어하기"
   },
   {
-    "id": "menu_settings",
-    "chineseText": "设置",
-    "koreanText": "설정"
-  },
-  {
     "id": "menu_exit",
     "chineseText": "退出游戏",
     "koreanText": "게임 종료"
   },
   {
+    "id": "allstages_clear",
+    "chineseText": "全部关卡通关！",
+    "koreanText": "모든 단계 완료!"
+  },
+  {
+    "id": "stageslevel_clear",
+    "chineseText": "第 {0} 关完成",
+    "koreanText": "제 {0} 단계 완료"
+  },
+  {
+    "id": "level_complete_score",
+    "chineseText": "分类完成：{0}/{1}",
+    "koreanText": "분류 완료: {0}/{1}"
+  },
+  {
+    "id": "common_next_level",
+    "chineseText": "下一关",
+    "koreanText": "다음 레벨"
+  },
+  {
     "id": "common_back",
-    "chineseText": "返回",
-    "koreanText": "뒤로"
+    "chineseText": "返回主界面",
+    "koreanText": "메인 메뉴"
+  },
+  {
+    "id": "menu_settings",
+    "chineseText": "设置",
+    "koreanText": "설정"
   },
   {
     "id": "common_confirm",
@@ -73,11 +83,6 @@
     "id": "common_next",
     "chineseText": "下一步",
     "koreanText": "다음"
-  },
-  {
-    "id": "common_next_level",
-    "chineseText": "下一关",
-    "koreanText": "다음 레벨"
   },
   {
     "id": "common_complete",
@@ -268,11 +273,6 @@
     "id": "level_complete_title",
     "chineseText": "关卡完成",
     "koreanText": "레벨 완료"
-  },
-  {
-    "id": "level_complete_score",
-    "chineseText": "本关完成物品：{0}/{1}",
-    "koreanText": "이번 레벨 분리배출: {0}/{1}"
   },
   {
     "id": "level_complete_next",

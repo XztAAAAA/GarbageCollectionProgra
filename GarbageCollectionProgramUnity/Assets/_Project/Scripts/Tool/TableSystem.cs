@@ -20,11 +20,15 @@ public static class TableSystem
         });
     }
 
-    public static string GetLanguage(string key)
+    public static string GetLanguage(string key, params object[] args)
     {
         var language = Tables.TbLanguage.Get(key);
-         return Application.systemLanguage == SystemLanguage.ChineseSimplified
+        string text = Application.systemLanguage != SystemLanguage.ChineseSimplified
             ? language.ChineseText
             : language.KoreanText;
+
+        return args == null || args.Length == 0
+            ? text
+            : string.Format(text, args);
     }
 }

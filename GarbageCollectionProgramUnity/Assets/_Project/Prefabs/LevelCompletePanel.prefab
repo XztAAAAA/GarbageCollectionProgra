@@ -201,7 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WasteLevelCompleteUI
   flowManager: {fileID: 0}
-  titleText: {fileID: 2918776251360016936}
+  descText: {fileID: 2918776251360016936}
   resultText: {fileID: 5128463515118772550}
   nextLevelButton: {fileID: 7893949574951893417}
   nextLevelButtonText: {fileID: 3211179147442043660}
@@ -242,7 +242,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -19.9687}
-  m_SizeDelta: {x: 848.1637, y: 332.2812}
+  m_SizeDelta: {x: 749.1103, y: 332.2812}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6928656151379685110
 CanvasRenderer:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u5168\u90E8\u5173\u5361\u901A\u5173\n\u5168\u90E8\u5173\u5361\u901A\u5173\n\u5168\u90E8\u5173\u5361\u901A\u5173"
+  m_text: "\u5168\u90E8\u5173\u5361\u901A\u5173\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 35cb6b05578a68d4985f5fc655ebe4b0, type: 2}
   m_sharedMaterial: {fileID: 2849167987251049731, guid: 35cb6b05578a68d4985f5fc655ebe4b0, type: 2}
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 70
-  m_fontSizeBase: 70
+  m_fontSize: 100
+  m_fontSizeBase: 100
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -557,8 +557,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1244,7 +1244,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 6.0308}
-  m_SizeDelta: {x: 0, y: -57.9618}
+  m_SizeDelta: {x: -100, y: -57.9618}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9103171306359457294
 CanvasRenderer:
@@ -1301,8 +1301,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1381,7 +1381,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 6.0308}
-  m_SizeDelta: {x: 0, y: -60.3071}
+  m_SizeDelta: {x: -100, y: -60.3071}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5040183110265888118
 CanvasRenderer:
@@ -1438,8 +1438,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

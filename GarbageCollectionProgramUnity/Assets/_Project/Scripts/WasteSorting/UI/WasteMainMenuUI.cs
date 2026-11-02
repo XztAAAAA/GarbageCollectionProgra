@@ -170,13 +170,11 @@ public class WasteMainMenuUI : MonoBehaviour
 
         if (WasteLevelProgress.IsAllLevelsCompleted)
         {
-            continueButtonText.text =
-                "모든 단계 완료\n全部关卡已完成";
+            continueButtonText.text = TableSystem.GetLanguage("allstages_clear");
         }
         else
         {
-            continueButtonText.text =
-                "이어하기\n继续游戏";
+            continueButtonText.text = TableSystem.GetLanguage("menu_continue");
         }
 
         CommonTool.Log(

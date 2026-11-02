@@ -16,7 +16,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
 
     [Header("结算文本 / 결과 텍스트")]
     [SerializeField]
-    private TMP_Text titleText;
+    private TMP_Text descText;
 
     [SerializeField]
     private TMP_Text resultText;
@@ -134,7 +134,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
         if (flowManager == null)
             CommonTool.LogError("[WasteLevelCompleteUI] FlowManager 未绑定。", this);
 
-        if (titleText == null)
+        if (descText == null)
             CommonTool.LogError("[WasteLevelCompleteUI] TitleText 未绑定。", this);
 
         if (resultText == null)
@@ -159,7 +159,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
     public void OnLevelCompleted(
         WasteLevelCompletedEvent eventData)
     {
-        AudioTool.PlaySound("level_rush_arrive");
+        AudioTool.PlaySound("level_rush_arrive", 0.8f);
         if (flowManager == null)
             return;
 
@@ -167,30 +167,22 @@ public class WasteLevelCompleteUI : MonoBehaviour
         bool isLastLevel = flowManager.IsLastLevel;
 
         // 设置结算标题
-        if (titleText != null)
+        if (descText != null)
         {
             if (isLastLevel)
             {
-                titleText.text =
-                    "ALL STAGES CLEAR!\n" +
-                    "모든 단계 완료!\n" +
-                    "全部关卡通关！";
+                descText.text = TableSystem.GetLanguage("allstages_clear");
             }
             else
             {
-                titleText.text =
-                    $"STAGE {levelId} CLEAR\n" +
-                    $"제 {levelId} 단계 완료\n" +
-                    $"第 {levelId} 关完成";
+                descText.text =TableSystem.GetLanguage("stageslevel_clear", levelId);
             }
         }
 
         // 设置结算结果
         if (resultText != null)
         {
-            resultText.text =
-                $"분류 완료: {eventData.CompletedItems}/{eventData.TotalItems}\n" +
-                $"分类完成：{eventData.CompletedItems}/{eventData.TotalItems}";
+            resultText.text = TableSystem.GetLanguage("level_complete_score",eventData.CompletedItems,eventData.TotalItems);
         }
 
         // 设置下一关按钮
@@ -202,15 +194,13 @@ public class WasteLevelCompleteUI : MonoBehaviour
 
         if (nextLevelButtonText != null)
         {
-            nextLevelButtonText.text =
-                "다음 단계\n下一关";
+            nextLevelButtonText.text = TableSystem.GetLanguage("common_next_level");
         }
 
         // 设置返回主界面按钮
         if (mainMenuButtonText != null)
         {
-            mainMenuButtonText.text =
-                "메인 메뉴\n返回主界面";
+            mainMenuButtonText.text = TableSystem.GetLanguage("common_back");
         }
 
         CommonTool.Log(

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class TestManager : MonoBehaviour
 {
+    [SerializeField, Min(1)]
+    private int targetLevelId = 1;
+
     public void CompleteCurrentLevel()
     {
         if (!Application.isPlaying)
@@ -48,6 +51,31 @@ public class TestManager : MonoBehaviour
             $"[TestManager] 已触发第 {flowManager.CurrentLevelId} 关完成。",
             this
         );
+    }
+
+    public void JumpToTargetLevel()
+    {
+        if (!Application.isPlaying)
+        {
+            CommonTool.LogWarning(
+                "[TestManager] 跳转关卡只能在运行时使用。",
+                this
+            );
+            return;
+        }
+
+        WasteLevelFlowManager flowManager =
+            FindObjectOfType<WasteLevelFlowManager>();
+        if (flowManager == null)
+        {
+            CommonTool.LogError(
+                "[TestManager] 找不到关卡流程管理器，无法跳转关卡。",
+                this
+            );
+            return;
+        }
+
+        flowManager.JumpToLevel(targetLevelId);
     }
 }
 #endif

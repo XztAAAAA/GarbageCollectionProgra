@@ -104,6 +104,21 @@ public class WasteLevelFlowManager : MonoSingleton<WasteLevelFlowManager>
         StartCurrentLevel();
     }
 
+    public bool JumpToLevel(int levelId)
+    {
+        if (TableSystem.Tables.TbLevel.GetOrDefault(levelId) == null)
+        {
+            CommonTool.LogError(
+                $"[WasteLevelFlowManager] 找不到第 {levelId} 关配置，无法跳转。"
+            );
+            return false;
+        }
+
+        currentLevelId = levelId;
+        StartCurrentLevel();
+        return true;
+    }
+
     /// <summary>
     /// 开始当前关卡。
     /// </summary>
