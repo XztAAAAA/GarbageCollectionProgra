@@ -4,6 +4,11 @@ using UnityEngine.SceneManagement;
 
 public class CommonTool
 {
+    private const string DefaultClickSoundPath = "Sound/ui_btn_click";
+    private const string ClickAudioSourceObjectName = "CommonTool Click Audio Source";
+    private static AudioClip defaultClickSound;
+    private static AudioSource clickAudioSource;
+
     public static void Log(object message, UnityEngine.Object context = null)
     {
 #if UNITY_EDITOR
@@ -70,6 +75,54 @@ public class CommonTool
         }
 
         audioSource.PlayOneShot(audioClip, volumeScale);
+    }
+
+    public static void PlayClickSound()
+    {
+        if (defaultClickSound == null)
+        {
+            defaultClickSound =
+                Resources.Load<AudioClip>(DefaultClickSoundPath);
+        }
+
+        if (defaultClickSound == null)
+        {
+            LogError(
+                $"Cannot load the default click sound at " +
+                $"Resources/{DefaultClickSoundPath}."
+            );
+            return;
+        }
+
+        PlaySound(GetClickAudioSource(), defaultClickSound);
+    }
+
+    private static AudioSource GetClickAudioSource()
+    {
+        if (clickAudioSource != null)
+        {
+            return clickAudioSource;
+        }
+
+        GameObject audioSourceObject =
+            GameObject.Find(ClickAudioSourceObjectName);
+        if (audioSourceObject == null)
+        {
+            audioSourceObject = new GameObject(ClickAudioSourceObjectName);
+            UnityEngine.Object.DontDestroyOnLoad(audioSourceObject);
+        }
+
+        clickAudioSource = audioSourceObject.GetComponent<AudioSource>();
+        if (clickAudioSource == null)
+        {
+            clickAudioSource = audioSourceObject.AddComponent<AudioSource>();
+        }
+
+        clickAudioSource.playOnAwake = false;
+        clickAudioSource.loop = false;
+        clickAudioSource.spatialBlend = 0f;
+
+        return clickAudioSource;
     }
 
     public static void LoadScene(string path)
