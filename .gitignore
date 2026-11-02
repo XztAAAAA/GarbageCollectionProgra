@@ -1,3 +1,15 @@
+# Unity generated caches
+/GarbageCollectionProgramUnity/[Ll]ibrary/
+/GarbageCollectionProgramUnity/[Tt]emp/
+/GarbageCollectionProgramUnity/[Oo]bj/
+/GarbageCollectionProgramUnity/[Ll]ogs/
+/GarbageCollectionProgramUnity/[Uu]ser[Ss]ettings/
+/GarbageCollectionProgramUnity/[Bb]uild/
+/GarbageCollectionProgramUnity/[Bb]uilds/
+/GarbageCollectionProgramUnity/[Mm]emoryCaptures/
+/GarbageCollectionProgramUnity/[Rr]ecordings/
+/GarbageCollectionProgramUnity/.utmp/
+
 # Generated IDE solution and project files
 *.csproj
 *.sln
@@ -13,6 +25,10 @@
 *.opendb
 .vs/
 .idea/
+
+# Generated Android build outputs
+*.apk
+*.aab
 
 # Crash and temporary files
 sysinfo.txt
