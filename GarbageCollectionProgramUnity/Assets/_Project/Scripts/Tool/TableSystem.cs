@@ -23,7 +23,7 @@ public static class TableSystem
     public static string GetLanguage(string key)
     {
         var language = Tables.TbLanguage.Get(key);
-        return Application.systemLanguage == SystemLanguage.Chinese
+         return Application.systemLanguage == SystemLanguage.ChineseSimplified
             ? language.ChineseText
             : language.KoreanText;
     }
