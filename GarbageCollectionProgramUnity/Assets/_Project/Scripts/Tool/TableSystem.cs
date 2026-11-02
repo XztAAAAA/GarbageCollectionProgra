@@ -19,4 +19,12 @@ public static class TableSystem
             return JSON.Parse(asset.text);
         });
     }
+
+    public static string GetLanguage(string key)
+    {
+        var language = Tables.TbLanguage.Get(key);
+        return Application.systemLanguage == SystemLanguage.Chinese
+            ? language.ChineseText
+            : language.KoreanText;
+    }
 }

@@ -20,12 +20,14 @@ public partial class Tables
     public TbTest TbTest {get; }
     public waste.TbWasteItem TbWasteItem {get; }
     public waste.TbLevel TbLevel {get; }
+    public TbLanguage TbLanguage {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
         TbTest = new TbTest(loader("tbtest"));
         TbWasteItem = new waste.TbWasteItem(loader("waste_tbwasteitem"));
         TbLevel = new waste.TbLevel(loader("waste_tblevel"));
+        TbLanguage = new TbLanguage(loader("tblanguage"));
         ResolveRef();
     }
     
@@ -34,6 +36,7 @@ public partial class Tables
         TbTest.ResolveRef(this);
         TbWasteItem.ResolveRef(this);
         TbLevel.ResolveRef(this);
+        TbLanguage.ResolveRef(this);
     }
 }
 
