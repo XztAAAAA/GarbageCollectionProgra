@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,9 +27,26 @@ public class WasteMainMenuUI : MonoBehaviour
     private Button exitButton;
 
     private float continueButtonTextOriginalAlpha = 1f;
+    private RectTransform title;
+    private Vector3 titleOriginalScale;
+    private Tween titleBreathingTween;
 
     private void Awake()
     {
+        Transform titleTransform = transform.Find("Title");
+        if (titleTransform != null)
+        {
+            title = titleTransform as RectTransform;
+            titleOriginalScale = title.localScale;
+        }
+        else
+        {
+            CommonTool.LogError(
+                "[WasteMainMenuUI] 找不到 Title 子物体，无法播放呼吸效果。",
+                this
+            );
+        }
+
         // 自动获取继续游戏按钮的 TMP 文字
         if (continueButtonText == null && continueButton != null)
         {
@@ -45,6 +63,8 @@ public class WasteMainMenuUI : MonoBehaviour
 
     private void OnEnable()
     {
+        PlayTitleBreathingEffect();
+
         if (startGameButton != null)
         {
             startGameButton.onClick.AddListener(
@@ -71,6 +91,17 @@ public class WasteMainMenuUI : MonoBehaviour
 
     private void OnDisable()
     {
+        if (titleBreathingTween != null)
+        {
+            titleBreathingTween.Kill();
+            titleBreathingTween = null;
+        }
+
+        if (title != null)
+        {
+            title.localScale = titleOriginalScale;
+        }
+
         if (startGameButton != null)
         {
             startGameButton.onClick.RemoveListener(
@@ -91,6 +122,22 @@ public class WasteMainMenuUI : MonoBehaviour
                 OnExitClicked
             );
         }
+    }
+
+    private void PlayTitleBreathingEffect()
+    {
+        if (title == null)
+        {
+            return;
+        }
+
+        titleBreathingTween?.Kill();
+        title.localScale = titleOriginalScale;
+        titleBreathingTween = title
+            .DOScale(titleOriginalScale * 1.03f, 0.8f)
+            .SetEase(Ease.InOutSine)
+            .SetLoops(-1, LoopType.Yoyo)
+            .SetUpdate(true);
     }
 
     /// <summary>

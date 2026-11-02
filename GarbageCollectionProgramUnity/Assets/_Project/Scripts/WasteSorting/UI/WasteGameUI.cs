@@ -1,4 +1,5 @@
 
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,8 +17,47 @@ public class WasteGameUI : MonoBehaviour
     [Header("底部提示 / 하단 안내")]
     [SerializeField] private TMP_Text feedbackMessageText;
 
+    private RectTransform topProgressPanel;
+    private RectTransform feedbackPanel;
+    private Vector2 topProgressTargetPosition;
+    private Vector2 feedbackTargetPosition;
+    private Tween topProgressTween;
+    private Tween feedbackTween;
+
+    private void Awake()
+    {
+        topProgressPanel = transform.Find("TopProgressPanel") as RectTransform;
+        feedbackPanel = transform.Find("FeedbackPanel") as RectTransform;
+
+        if (topProgressPanel == null)
+        {
+            CommonTool.LogError(
+                "[WasteGameUI] 找不到 TopProgressPanel，无法播放进入动画。",
+                this
+            );
+        }
+        else
+        {
+            topProgressTargetPosition = topProgressPanel.anchoredPosition;
+        }
+
+        if (feedbackPanel == null)
+        {
+            CommonTool.LogError(
+                "[WasteGameUI] 找不到 FeedbackPanel，无法播放进入动画。",
+                this
+            );
+        }
+        else
+        {
+            feedbackTargetPosition = feedbackPanel.anchoredPosition;
+        }
+    }
+
     private void OnEnable()
     {
+        PlayPanelEntranceAnimations();
+
         GameEventBus.Subscribe<WasteProgressChangedEvent>(
             OnProgressChanged
         );
@@ -29,6 +69,8 @@ public class WasteGameUI : MonoBehaviour
 
     private void OnDisable()
     {
+        StopPanelEntranceAnimations();
+
         GameEventBus.Unsubscribe<WasteProgressChangedEvent>(
             OnProgressChanged
         );
@@ -36,6 +78,51 @@ public class WasteGameUI : MonoBehaviour
         GameEventBus.Unsubscribe<WasteFeedbackEvent>(
             OnFeedbackChanged
         );
+    }
+
+    private void PlayPanelEntranceAnimations()
+    {
+        if (topProgressPanel != null)
+        {
+            topProgressTween?.Kill();
+            topProgressPanel.anchoredPosition =
+                topProgressTargetPosition +
+                Vector2.up * (topProgressPanel.rect.height + 30f);
+            topProgressTween = topProgressPanel
+                .DOAnchorPos(topProgressTargetPosition, 0.4f)
+                .SetEase(Ease.OutCubic)
+                .SetUpdate(true);
+        }
+
+        if (feedbackPanel != null)
+        {
+            feedbackTween?.Kill();
+            feedbackPanel.anchoredPosition =
+                feedbackTargetPosition -
+                Vector2.up * (feedbackPanel.rect.height + 30f);
+            feedbackTween = feedbackPanel
+                .DOAnchorPos(feedbackTargetPosition, 0.4f)
+                .SetEase(Ease.OutCubic)
+                .SetUpdate(true);
+        }
+    }
+
+    private void StopPanelEntranceAnimations()
+    {
+        topProgressTween?.Kill();
+        topProgressTween = null;
+        feedbackTween?.Kill();
+        feedbackTween = null;
+
+        if (topProgressPanel != null)
+        {
+            topProgressPanel.anchoredPosition = topProgressTargetPosition;
+        }
+
+        if (feedbackPanel != null)
+        {
+            feedbackPanel.anchoredPosition = feedbackTargetPosition;
+        }
     }
 
     /// <summary>
