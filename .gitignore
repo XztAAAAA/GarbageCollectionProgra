@@ -1,14 +1,3 @@
-# Unity generated caches
-/GarbageCollectionProgramUnity/[Ll]ibrary/
-/GarbageCollectionProgramUnity/[Tt]emp/
-/GarbageCollectionProgramUnity/[Oo]bj/
-/GarbageCollectionProgramUnity/[Ll]ogs/
-/GarbageCollectionProgramUnity/[Uu]ser[Ss]ettings/
-/GarbageCollectionProgramUnity/[Bb]uild/
-/GarbageCollectionProgramUnity/[Bb]uilds/
-/GarbageCollectionProgramUnity/[Mm]emoryCaptures/
-/GarbageCollectionProgramUnity/[Rr]ecordings/
-
 # Generated IDE solution and project files
 *.csproj
 *.sln
