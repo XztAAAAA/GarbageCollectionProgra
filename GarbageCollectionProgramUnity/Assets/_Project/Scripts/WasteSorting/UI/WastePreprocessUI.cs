@@ -126,7 +126,7 @@ public class WastePreprocessUI : MonoBehaviour
 
         if (titleText != null)
         {
-            titleText.text = "전처리 안내\n预处理说明";
+            titleText.text = TableSystem.GetLanguage("preprocess_title");
         }
 
         if (descText != null)
@@ -137,7 +137,7 @@ public class WastePreprocessUI : MonoBehaviour
         if (completeButtonText != null)
         {
             completeButtonText.text = isProcessing
-                ? "진행 중...\n正在进行中..."
+                ? TableSystem.GetLanguage("preprocess_processing")
                 : eventData.ButtonText;
         }
 
@@ -190,7 +190,7 @@ public class WastePreprocessUI : MonoBehaviour
 
         if (completeButtonText != null)
         {
-            completeButtonText.text = "진행 중...\n正在进行中...";
+            completeButtonText.text = TableSystem.GetLanguage("preprocess_processing");
         }
 
         CommonTool.Log(

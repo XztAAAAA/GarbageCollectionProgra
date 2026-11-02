@@ -35,15 +35,14 @@ public class LocalizedTextMeshProUGUI : TextMeshProUGUI
             return false;
         }
 
-        cfg.Language language =
-            TableSystem.Tables.TbLanguage.GetOrDefault(languageKey);
-        if (language == null)
+        if (!TableSystem.TryGetLanguage(
+            languageKey,
+            out localizedText))
         {
             error = $"找不到多语言 key：{languageKey}";
             return false;
         }
 
-        localizedText = TableSystem.GetLanguage(languageKey);
         return true;
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Core;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// 垃圾预处理管理器。
@@ -252,8 +253,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         if (state.IsCompleted)
         {
             PublishFeedback(
-                "이제 분류 구역으로 드래그하세요.",
-                "这件垃圾已经可以直接分类。"
+                TableSystem.GetLanguage("feedback_ready_to_sort")
             );
 
             CommonTool.Log(
@@ -355,8 +355,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         );
 
         PublishFeedback(
-            "먼저 필요한 전처리를 완료해 주세요.",
-            "请先完成这件垃圾所需的预处理步骤。"
+            TableSystem.GetLanguage("feedback_preprocess_required")
         );
     }
 
@@ -410,8 +409,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             PublishPanelClosed(activeItemEntityId);
 
             PublishFeedback(
-                "전처리가 완료되었습니다. 이제 분류해 주세요.",
-                "预处理已完成，现在可以进行分类。"
+                TableSystem.GetLanguage("feedback_preprocess_completed")
             );
 
             hasActiveItem = false;
@@ -445,31 +443,16 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
 
         cfg.waste.PreprocessType step =
             state.Steps[state.CurrentStepIndex];
-
-        if (!TryGetStepInfo(
-            step,
-            out string koreanTitle,
-            out string chineseTitle,
-            out string koreanDescription,
-            out string chineseDescription))
-        {
-            CommonTool.LogError(
-                $"[WastePreprocessManager] 未处理的步骤类型：{step}"
-            );
-            return;
-        }
+        var message = TableSystem.Tables.TbPreprocessMessqge.Get(step);
 
         int currentStep = state.CurrentStepIndex + 1;
         int totalSteps = state.Steps.Count;
 
         string content =
             $"<align=center>" +
-            $"<size=82%><color=#718176>{currentStep} / {totalSteps} 단계 · " +
-            $"第 {currentStep} / {totalSteps} 步</color></size>\n" +
-            $"<size=118%><b>{koreanTitle}</b></size>" +
-            $"<size=88%><color=#718176>{chineseTitle}</color></size>\n" +
-            $"<line-height=115%>{koreanDescription}</line-height>" +
-            $"<size=90%><color=#718176>{chineseDescription}</color></size>" +
+            $"<size=82%>{TableSystem.GetLanguage("preprocess_step", currentStep, totalSteps)}\n" +
+            $"<size=118%><b>{TableSystem.GetLanguage(message.Title)}</b></size>\n" +
+            $"<line-height=115%>{TableSystem.GetLanguage(message.Description)}</line-height>" +
             $"</align>";
 
         GameEventBus.Publish(
@@ -477,112 +460,20 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
                 true,
                 entityId,
                 content,
-                "단계 완료\n完成当前步骤"
+                TableSystem.GetLanguage("preprocess_button_complete")
             )
         );
-    }
-
-    /// <summary>
-    /// 根据 Luban 枚举获取中韩双语说明。
-    /// 暂时使用代码映射，后续可以迁移到 Luban。
-    /// </summary>
-    private bool TryGetStepInfo(
-        cfg.waste.PreprocessType step,
-        out string koreanTitle,
-        out string chineseTitle,
-        out string koreanDescription,
-        out string chineseDescription)
-    {
-        switch (step)
-        {
-            case cfg.waste.PreprocessType.EMPTY_CONTENTS:
-
-                koreanTitle = "내용물 비우기";
-                chineseTitle = "倒空内容物";
-
-                koreanDescription =
-                    "용기 안의 내용물을 모두 비워 주세요.";
-
-                chineseDescription =
-                    "请将容器内的内容物倒空。";
-
-                return true;
-
-            case cfg.waste.PreprocessType.REMOVE_LABEL:
-
-                koreanTitle = "라벨 제거하기";
-                chineseTitle = "移除标签";
-
-                koreanDescription =
-                    "분리할 수 있는 라벨을 제거해 주세요.";
-
-                chineseDescription =
-                    "请移除可以分离的标签。";
-
-                return true;
-
-            case cfg.waste.PreprocessType.SEPARATE_MATERIALS:
-
-                koreanTitle = "다른 재질 분리하기";
-                chineseTitle = "分离不同材质";
-
-                koreanDescription =
-                    "서로 다른 재질의 부품을 분리해 주세요.";
-
-                chineseDescription =
-                    "请将不同材质的部件分开。";
-
-                return true;
-
-            case cfg.waste.PreprocessType.REMOVE_LIQUID:
-
-                koreanTitle = "물기 제거하기";
-                chineseTitle = "去除水分";
-
-                koreanDescription =
-                    "남아 있는 액체와 물기를 제거해 주세요.";
-
-                chineseDescription =
-                    "请去除残留液体和水分。";
-
-                return true;
-
-            case cfg.waste.PreprocessType.FLATTEN:
-
-                koreanTitle = "압축하거나 접기";
-                chineseTitle = "压扁或折叠";
-
-                koreanDescription =
-                    "부피를 줄일 수 있도록 눌러 주세요.";
-
-                chineseDescription =
-                    "请压扁或折叠，以减少体积。";
-
-                return true;
-
-            default:
-
-                koreanTitle = string.Empty;
-                chineseTitle = string.Empty;
-                koreanDescription = string.Empty;
-                chineseDescription = string.Empty;
-
-                return false;
-        }
     }
 
     #endregion
 
     #region Feedback
 
-    private void PublishFeedback(
-        string korean,
-        string chinese)
+    private void PublishFeedback(string message)
     {
         GameEventBus.Publish(
             new WasteFeedbackEvent(
-                korean,
-                chinese
+                message
             )
         );
     }

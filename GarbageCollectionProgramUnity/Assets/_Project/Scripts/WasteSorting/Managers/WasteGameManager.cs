@@ -90,16 +90,14 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         if (totalItems == 0)
         {
             PublishFeedback(
-                "분류할 쓰레기가 없습니다.",
-                "当前没有可分类的垃圾。"
+                TableSystem.GetLanguage("tutorial_nothing")
             );
 
             return;
         }
 
         PublishFeedback(
-            "쓰레기를 분류 구역으로 드래그하세요.",
-            "请将垃圾拖到对应的分类区域。"
+            TableSystem.GetLanguage("tutorial_drag_sort")
         );
     }
 
@@ -135,8 +133,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         if (!isCorrect)
         {
             PublishFeedback(
-                "분류가 올바르지 않아요. 다시 확인해 보세요.",
-                "分类不正确，请再检查一下。"
+                TableSystem.GetLanguage("feedback_sort_wrong")
             );
 
             return;
@@ -158,8 +155,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             isLevelCompleted = true;
 
             PublishFeedback(
-                "모든 쓰레기를 분류했어요! 잘했어요!",
-                "所有垃圾都分类完成了！做得很好！"
+                TableSystem.GetLanguage("feedback_over")
             );
 
             GameEventBus.Publish(
@@ -172,8 +168,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         else
         {
             PublishFeedback(
-                "정답이에요! 잘했어요!",
-                "分类正确！做得很好！"
+                TableSystem.GetLanguage("feedback_good")
             );
         }
     }
@@ -195,12 +190,10 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
     /// <summary>
     /// 发布双语反馈信息事件。
     /// </summary>
-    private void PublishFeedback(
-        string korean,
-        string chinese)
+    private void PublishFeedback(string message)
     {
         GameEventBus.Publish(
-            new WasteFeedbackEvent(korean, chinese)
+            new WasteFeedbackEvent(message)
         );
     }
 }

@@ -4,14 +4,10 @@
 /// </summary>
 public readonly struct WasteFeedbackEvent
 {
-    public string KoreanMessage { get; }
-    public string ChineseMessage { get; }
+    public string Message { get; }
 
-    public WasteFeedbackEvent(
-        string koreanMessage,
-        string chineseMessage)
+    public WasteFeedbackEvent(string message)
     {
-        KoreanMessage = koreanMessage;
-        ChineseMessage = chineseMessage;
+        Message = message;
     }
 }

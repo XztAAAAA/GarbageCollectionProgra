@@ -133,16 +133,12 @@ public class WasteGameUI : MonoBehaviour
     {
         if (stageProgressText != null)
         {
-            stageProgressText.text =
-                $"{eventData.CurrentStage}단계" +
-                $"第 {eventData.CurrentStage} 关";
+            stageProgressText.text = TableSystem.GetLanguage("game_level", eventData.CurrentStage);
         }
 
         if (remainingItemsText != null)
         {
-            remainingItemsText.text =
-                $"남은 쓰레기: {eventData.RemainingItems}개\n" +
-                $"剩余垃圾：{eventData.RemainingItems} 件";
+            remainingItemsText.text = TableSystem.GetLanguage("game_remaining", eventData.RemainingItems);
         }
 
         if(slider != null)
@@ -160,8 +156,6 @@ public class WasteGameUI : MonoBehaviour
         if (feedbackMessageText == null)
             return;
 
-        feedbackMessageText.text =
-            $"{eventData.KoreanMessage}\n" +
-            $"{eventData.ChineseMessage}";
+        feedbackMessageText.text = eventData.Message;
     }
 }

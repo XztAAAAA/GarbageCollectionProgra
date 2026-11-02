@@ -21,6 +21,7 @@ public partial class Tables
     public waste.TbWasteItem TbWasteItem {get; }
     public waste.TbLevel TbLevel {get; }
     public TbLanguage TbLanguage {get; }
+    public TbPreprocessMessqge TbPreprocessMessqge {get; }
 
     public Tables(System.Func<string, JSONNode> loader)
     {
@@ -28,6 +29,7 @@ public partial class Tables
         TbWasteItem = new waste.TbWasteItem(loader("waste_tbwasteitem"));
         TbLevel = new waste.TbLevel(loader("waste_tblevel"));
         TbLanguage = new TbLanguage(loader("tblanguage"));
+        TbPreprocessMessqge = new TbPreprocessMessqge(loader("tbpreprocessmessqge"));
         ResolveRef();
     }
     
@@ -37,6 +39,7 @@ public partial class Tables
         TbWasteItem.ResolveRef(this);
         TbLevel.ResolveRef(this);
         TbLanguage.ResolveRef(this);
+        TbPreprocessMessqge.ResolveRef(this);
     }
 }
 

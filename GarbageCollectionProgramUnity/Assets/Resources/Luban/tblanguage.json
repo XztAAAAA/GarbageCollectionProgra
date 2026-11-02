@@ -45,6 +45,146 @@
     "koreanText": "메인 메뉴"
   },
   {
+    "id": "game_tagline",
+    "chineseText": "为地球做一点小小的努力！",
+    "koreanText": "지구를 위한 작은 실천!"
+  },
+  {
+    "id": "game_level",
+    "chineseText": "第 {0} 关",
+    "koreanText": "{0}단계"
+  },
+  {
+    "id": "game_remaining",
+    "chineseText": "剩余物品：{0}",
+    "koreanText": "남은 쓰레기: {0}개"
+  },
+  {
+    "id": "game_category",
+    "chineseText": "分类投放区",
+    "koreanText": "분리배출 구역"
+  },
+  {
+    "id": "game_sort_instruction",
+    "chineseText": "将垃圾拖入正确的分类区域。",
+    "koreanText": "쓰레기를 알맞은 분리배출 구역으로 드래그하세요."
+  },
+  {
+    "id": "tutorial_nothing",
+    "chineseText": "当前没有可分类的垃圾。",
+    "koreanText": "분류할 쓰레기가 없습니다."
+  },
+  {
+    "id": "tutorial_drag_sort",
+    "chineseText": "请将物品拖到对应的分类区域。",
+    "koreanText": "쓰레기를 알맞은 분리배출 구역으로 드래그하세요."
+  },
+  {
+    "id": "feedback_sort_wrong",
+    "chineseText": "分类不正确，请再试一次。",
+    "koreanText": "분류가 올바르지 않아요. 다시 시도하세요."
+  },
+  {
+    "id": "feedback_over",
+    "chineseText": "所有垃圾都分类完成了！做得很好！",
+    "koreanText": "모든 쓰레기를 분류했어요! 잘했어요!"
+  },
+  {
+    "id": "feedback_good",
+    "chineseText": "分类正确！做得很好！",
+    "koreanText": "정답이에요! 잘했어요!"
+  },
+  {
+    "id": "feedback_ready_to_sort",
+    "chineseText": "这件垃圾可以直接分类。",
+    "koreanText": "이 쓰레기는 바로 분리배출할 수 있어요."
+  },
+  {
+    "id": "feedback_preprocess_required",
+    "chineseText": "请先完成预处理，再进行分类。",
+    "koreanText": "전처리를 완료한 후 분리배출하세요."
+  },
+  {
+    "id": "feedback_preprocess_completed",
+    "chineseText": "预处理完成！现在可以分类了。",
+    "koreanText": "전처리가 완료됐어요! 이제 분리배출하세요."
+  },
+  {
+    "id": "preprocess_label",
+    "chineseText": "预处理",
+    "koreanText": "전처리"
+  },
+  {
+    "id": "preprocess_title",
+    "chineseText": "预处理说明",
+    "koreanText": "전처리 안내"
+  },
+  {
+    "id": "preprocess_processing",
+    "chineseText": "处理中...",
+    "koreanText": "처리 중..."
+  },
+  {
+    "id": "preprocess_button_complete",
+    "chineseText": "完成当前步骤",
+    "koreanText": "현재 단계 완료"
+  },
+  {
+    "id": "preprocess_empty_contents_title",
+    "chineseText": "倒空内容物",
+    "koreanText": "내용물 비우기"
+  },
+  {
+    "id": "preprocess_empty_contents_desc",
+    "chineseText": "请倒空容器内的内容物。",
+    "koreanText": "용기 안의 내용물을 비워 주세요."
+  },
+  {
+    "id": "preprocess_remove_label_title",
+    "chineseText": "移除标签",
+    "koreanText": "라벨 제거하기"
+  },
+  {
+    "id": "preprocess_remove_label_desc",
+    "chineseText": "请撕下可以分离的标签。",
+    "koreanText": "분리할 수 있는 라벨을 떼어 주세요."
+  },
+  {
+    "id": "preprocess_separate_materials_title",
+    "chineseText": "分离不同材质",
+    "koreanText": "다른 재질 분리하기"
+  },
+  {
+    "id": "preprocess_separate_materials_desc",
+    "chineseText": "请将不同材质的部件分开。",
+    "koreanText": "서로 다른 재질의 부품을 분리해 주세요."
+  },
+  {
+    "id": "preprocess_remove_liquid_title",
+    "chineseText": "倒掉残留液体",
+    "koreanText": "남은 액체 비우기"
+  },
+  {
+    "id": "preprocess_remove_liquid_desc",
+    "chineseText": "请倒掉容器内残留的液体。",
+    "koreanText": "용기에 남은 액체를 비워 주세요."
+  },
+  {
+    "id": "preprocess_flatten_title",
+    "chineseText": "压扁或折叠",
+    "koreanText": "압축하거나 접기"
+  },
+  {
+    "id": "preprocess_flatten_desc",
+    "chineseText": "请压扁或折叠，以减少体积。",
+    "koreanText": "눌러서 부피를 줄이거나 접어 주세요."
+  },
+  {
+    "id": "preprocess_step",
+    "chineseText": "第 {0}/{1} 步",
+    "koreanText": "{0}/{1}단계"
+  },
+  {
     "id": "menu_settings",
     "chineseText": "设置",
     "koreanText": "설정"
@@ -90,24 +230,9 @@
     "koreanText": "완료"
   },
   {
-    "id": "game_level",
-    "chineseText": "第 {0} 关",
-    "koreanText": "{0}레벨"
-  },
-  {
     "id": "game_progress",
     "chineseText": "分类进度",
     "koreanText": "분리배출 진행도"
-  },
-  {
-    "id": "game_remaining",
-    "chineseText": "剩余物品：{0}",
-    "koreanText": "남은 쓰레기: {0}개"
-  },
-  {
-    "id": "game_sort_instruction",
-    "chineseText": "将垃圾拖入正确的分类区域。",
-    "koreanText": "쓰레기를 알맞은 분리배출 구역으로 드래그하세요."
   },
   {
     "id": "game_select_item",
@@ -160,26 +285,6 @@
     "koreanText": "분리배출 정답!"
   },
   {
-    "id": "feedback_sort_wrong",
-    "chineseText": "分类不正确，请再试一次。",
-    "koreanText": "분류가 올바르지 않아요. 다시 시도하세요."
-  },
-  {
-    "id": "feedback_preprocess_required",
-    "chineseText": "请先完成预处理，再进行分类。",
-    "koreanText": "전처리를 완료한 후 분리배출하세요."
-  },
-  {
-    "id": "feedback_ready_to_sort",
-    "chineseText": "这件垃圾可以直接分类。",
-    "koreanText": "이 쓰레기는 바로 분리배출할 수 있어요."
-  },
-  {
-    "id": "feedback_preprocess_completed",
-    "chineseText": "预处理完成！现在可以分类了。",
-    "koreanText": "전처리가 완료됐어요! 이제 분리배출하세요."
-  },
-  {
     "id": "feedback_level_completed",
     "chineseText": "关卡完成！",
     "koreanText": "레벨 완료!"
@@ -190,84 +295,9 @@
     "koreanText": "축하합니다! 모든 레벨을 완료했어요!"
   },
   {
-    "id": "preprocess_label",
-    "chineseText": "预处理",
-    "koreanText": "전처리"
-  },
-  {
-    "id": "preprocess_title",
-    "chineseText": "预处理说明",
-    "koreanText": "전처리 안내"
-  },
-  {
-    "id": "preprocess_step",
-    "chineseText": "第 {0}/{1} 步",
-    "koreanText": "{0}/{1}단계"
-  },
-  {
-    "id": "preprocess_button_complete",
-    "chineseText": "完成当前步骤",
-    "koreanText": "현재 단계 완료"
-  },
-  {
-    "id": "preprocess_processing",
-    "chineseText": "处理中...",
-    "koreanText": "처리 중..."
-  },
-  {
     "id": "preprocess_done",
     "chineseText": "处理完成",
     "koreanText": "처리 완료"
-  },
-  {
-    "id": "preprocess_empty_contents_title",
-    "chineseText": "倒空内容物",
-    "koreanText": "내용물 비우기"
-  },
-  {
-    "id": "preprocess_empty_contents_desc",
-    "chineseText": "请倒空容器内的内容物。",
-    "koreanText": "용기 안의 내용물을 비워 주세요."
-  },
-  {
-    "id": "preprocess_remove_label_title",
-    "chineseText": "移除标签",
-    "koreanText": "라벨 제거하기"
-  },
-  {
-    "id": "preprocess_remove_label_desc",
-    "chineseText": "请撕下可以分离的标签。",
-    "koreanText": "분리할 수 있는 라벨을 떼어 주세요."
-  },
-  {
-    "id": "preprocess_separate_materials_title",
-    "chineseText": "分离不同材质",
-    "koreanText": "다른 재질 분리하기"
-  },
-  {
-    "id": "preprocess_separate_materials_desc",
-    "chineseText": "请将不同材质的部件分开。",
-    "koreanText": "서로 다른 재질의 부품을 분리해 주세요."
-  },
-  {
-    "id": "preprocess_remove_liquid_title",
-    "chineseText": "倒掉残留液体",
-    "koreanText": "남은 액체 비우기"
-  },
-  {
-    "id": "preprocess_remove_liquid_desc",
-    "chineseText": "请倒掉容器内残留的液体。",
-    "koreanText": "용기에 남은 액체를 비워 주세요."
-  },
-  {
-    "id": "preprocess_flatten_title",
-    "chineseText": "压扁或折叠",
-    "koreanText": "압축하거나 접기"
-  },
-  {
-    "id": "preprocess_flatten_desc",
-    "chineseText": "请压扁或折叠，以减少体积。",
-    "koreanText": "눌러서 부피를 줄이거나 접어 주세요."
   },
   {
     "id": "level_complete_title",
@@ -328,11 +358,6 @@
     "id": "tutorial_welcome",
     "chineseText": "欢迎来到分类小队！",
     "koreanText": "분리배출 탐험대에 오신 것을 환영합니다!"
-  },
-  {
-    "id": "tutorial_drag_sort",
-    "chineseText": "将物品拖到对应的分类区域。",
-    "koreanText": "쓰레기를 알맞은 분리배출 구역으로 드래그하세요."
   },
   {
     "id": "tutorial_preprocess",
