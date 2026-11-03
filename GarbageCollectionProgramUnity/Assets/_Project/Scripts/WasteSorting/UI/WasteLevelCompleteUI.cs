@@ -1,5 +1,4 @@
 
-using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -35,8 +34,6 @@ public class WasteLevelCompleteUI : MonoBehaviour
     [SerializeField]
     private TMP_Text mainMenuButtonText;
 
-    private RectTransform content;
-    private Tween contentPopupTween;
     private WasteLevelCompletedEvent lastCompletedEvent;
     private bool hasCompletedEvent;
 
@@ -60,7 +57,6 @@ public class WasteLevelCompleteUI : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayContentPopup();
         TableSystem.LanguageChanged += OnLanguageChanged;
 
         if (nextLevelButton != null)
@@ -80,12 +76,6 @@ public class WasteLevelCompleteUI : MonoBehaviour
 
     private void OnDisable()
     {
-        if (contentPopupTween != null)
-        {
-            contentPopupTween.Kill();
-            contentPopupTween = null;
-        }
-
         if (nextLevelButton != null)
         {
             nextLevelButton.onClick.RemoveListener(
@@ -101,34 +91,6 @@ public class WasteLevelCompleteUI : MonoBehaviour
         }
 
         TableSystem.LanguageChanged -= OnLanguageChanged;
-    }
-
-    private void PlayContentPopup()
-    {
-        if (content == null)
-        {
-            content = transform.Find("Content") as RectTransform;
-        }
-
-        if (content == null)
-        {
-            CommonTool.LogError(
-                "[WasteLevelCompleteUI] 找不到 Content 子物体，无法播放弹出动画。",
-                this
-            );
-            return;
-        }
-
-        if (contentPopupTween != null)
-        {
-            contentPopupTween.Kill();
-        }
-
-        content.localScale = Vector3.one * 0.75f;
-        contentPopupTween = content
-            .DOScale(Vector3.one, 0.35f)
-            .SetEase(Ease.OutBack)
-            .SetUpdate(true);
     }
 
     /// <summary>
