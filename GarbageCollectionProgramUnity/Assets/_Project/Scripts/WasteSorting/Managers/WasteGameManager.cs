@@ -90,14 +90,14 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         if (totalItems == 0)
         {
             PublishFeedback(
-                TableSystem.GetLanguage("tutorial_nothing")
+                "tutorial_nothing"
             );
 
             return;
         }
 
         PublishFeedback(
-            TableSystem.GetLanguage("tutorial_drag_sort")
+            "tutorial_drag_sort"
         );
     }
 
@@ -133,7 +133,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         if (!isCorrect)
         {
             PublishFeedback(
-                TableSystem.GetLanguage("feedback_sort_wrong")
+                "feedback_sort_wrong"
             );
 
             return;
@@ -155,7 +155,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
             isLevelCompleted = true;
 
             PublishFeedback(
-                TableSystem.GetLanguage("feedback_over")
+                "feedback_over"
             );
 
             GameEventBus.Publish(
@@ -168,7 +168,7 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
         else
         {
             PublishFeedback(
-                TableSystem.GetLanguage("feedback_good")
+                "feedback_good"
             );
         }
     }
@@ -190,10 +190,13 @@ public class WasteGameManager : MonoSingleton<WasteGameManager>
     /// <summary>
     /// 发布双语反馈信息事件。
     /// </summary>
-    private void PublishFeedback(string message)
+    private void PublishFeedback(string languageKey)
     {
         GameEventBus.Publish(
-            new WasteFeedbackEvent(message)
+            new WasteFeedbackEvent(
+                TableSystem.GetLanguage(languageKey),
+                languageKey
+            )
         );
     }
 }

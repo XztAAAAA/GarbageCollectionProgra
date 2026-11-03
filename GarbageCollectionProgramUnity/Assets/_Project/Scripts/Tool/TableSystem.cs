@@ -1,12 +1,71 @@
 using Luban.SimpleJSON;
 using UnityEngine;
 
+public enum GameLanguage
+{
+    Chinese = 0,
+    Korean = 1
+}
+
 public static class TableSystem
 {
+    private const string LanguagePreferenceKey = "GameLanguage";
+
     private static cfg.Tables tables;
     private static cfg.TbLanguage languageTable;
+    private static bool languageInitialized;
+    private static GameLanguage currentLanguage;
+
+    public static event System.Action LanguageChanged;
 
     public static cfg.Tables Tables => tables ?? (tables = LoadTables());
+
+    public static GameLanguage CurrentLanguage
+    {
+        get
+        {
+            if (!languageInitialized)
+            {
+                int savedLanguage = PlayerPrefs.GetInt(
+                    LanguagePreferenceKey,
+                    Application.systemLanguage == SystemLanguage.ChineseSimplified
+                        ? (int)GameLanguage.Chinese
+                        : (int)GameLanguage.Korean
+                );
+
+                currentLanguage = savedLanguage == (int)GameLanguage.Chinese
+                    ? GameLanguage.Chinese
+                    : GameLanguage.Korean;
+                languageInitialized = true;
+            }
+
+            return currentLanguage;
+        }
+    }
+
+    public static void SetLanguage(GameLanguage language)
+    {
+        if (language != GameLanguage.Chinese &&
+            language != GameLanguage.Korean)
+        {
+            throw new System.ArgumentOutOfRangeException(
+                nameof(language),
+                language,
+                "Unsupported game language."
+            );
+        }
+
+        bool languageChanged = CurrentLanguage != language;
+        currentLanguage = language;
+        languageInitialized = true;
+        PlayerPrefs.SetInt(LanguagePreferenceKey, (int)language);
+        PlayerPrefs.Save();
+
+        if (languageChanged)
+        {
+            LanguageChanged?.Invoke();
+        }
+    }
 
     private static cfg.Tables LoadTables()
     {
@@ -50,7 +109,7 @@ public static class TableSystem
             return false;
         }
 
-        text = Application.systemLanguage == SystemLanguage.ChineseSimplified
+        text = CurrentLanguage == GameLanguage.Chinese
             ? language.ChineseText
             : language.KoreanText;
         if (args != null && args.Length > 0)

@@ -26,6 +26,11 @@ public class WasteMainMenuUI : MonoBehaviour
     [SerializeField]
     private Button exitButton;
 
+    [SerializeField]
+    private Button settingButton;
+
+    [SerializeField]
+    private GameObject SettingPanel;
     private float continueButtonTextOriginalAlpha = 1f;
     private RectTransform title;
     private Vector3 titleOriginalScale;
@@ -64,6 +69,7 @@ public class WasteMainMenuUI : MonoBehaviour
     private void OnEnable()
     {
         PlayTitleBreathingEffect();
+        TableSystem.LanguageChanged += OnLanguageChanged;
 
         if (startGameButton != null)
         {
@@ -85,6 +91,8 @@ public class WasteMainMenuUI : MonoBehaviour
                 OnExitClicked
             );
         }
+
+        settingButton.onClick.AddListener(OnSettingClicked);
 
         RefreshContinueButton();
     }
@@ -122,6 +130,15 @@ public class WasteMainMenuUI : MonoBehaviour
                 OnExitClicked
             );
         }
+
+        settingButton.onClick.RemoveListener(OnSettingClicked);
+
+        TableSystem.LanguageChanged -= OnLanguageChanged;
+    }
+
+    private void OnLanguageChanged()
+    {
+        RefreshContinueButton();
     }
 
     private void PlayTitleBreathingEffect()
@@ -228,6 +245,11 @@ public class WasteMainMenuUI : MonoBehaviour
 #else
         Application.Quit();
 #endif
+    }
+
+    private void OnSettingClicked()
+    {
+        SettingPanel.SetActive(true);
     }
 
     /// <summary>

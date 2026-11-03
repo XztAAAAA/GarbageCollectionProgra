@@ -23,6 +23,10 @@ public class WasteGameUI : MonoBehaviour
     private Vector2 feedbackTargetPosition;
     private Tween topProgressTween;
     private Tween feedbackTween;
+    private WasteProgressChangedEvent lastProgressEvent;
+    private WasteFeedbackEvent lastFeedbackEvent;
+    private bool hasProgressEvent;
+    private bool hasFeedbackEvent;
 
     private void Awake()
     {
@@ -65,6 +69,7 @@ public class WasteGameUI : MonoBehaviour
         GameEventBus.Subscribe<WasteFeedbackEvent>(
             OnFeedbackChanged
         );
+        TableSystem.LanguageChanged += OnLanguageChanged;
     }
 
     private void OnDisable()
@@ -78,6 +83,7 @@ public class WasteGameUI : MonoBehaviour
         GameEventBus.Unsubscribe<WasteFeedbackEvent>(
             OnFeedbackChanged
         );
+        TableSystem.LanguageChanged -= OnLanguageChanged;
     }
 
     private void PlayPanelEntranceAnimations()
@@ -131,6 +137,18 @@ public class WasteGameUI : MonoBehaviour
     private void OnProgressChanged(
         WasteProgressChangedEvent eventData)
     {
+        lastProgressEvent = eventData;
+        hasProgressEvent = true;
+        RefreshProgressText(eventData);
+
+        if(slider != null)
+        {
+            slider.value = eventData.Progress;
+        }
+    }
+
+    private void RefreshProgressText(WasteProgressChangedEvent eventData)
+    {
         if (stageProgressText != null)
         {
             stageProgressText.text = TableSystem.GetLanguage("game_level", eventData.CurrentStage);
@@ -140,11 +158,6 @@ public class WasteGameUI : MonoBehaviour
         {
             remainingItemsText.text = TableSystem.GetLanguage("game_remaining", eventData.RemainingItems);
         }
-
-        if(slider != null)
-        {
-            slider.value = eventData.Progress;
-        }
     }
 
     /// <summary>
@@ -153,9 +166,31 @@ public class WasteGameUI : MonoBehaviour
     private void OnFeedbackChanged(
         WasteFeedbackEvent eventData)
     {
+        lastFeedbackEvent = eventData;
+        hasFeedbackEvent = true;
+        RefreshFeedbackText(eventData);
+    }
+
+    private void RefreshFeedbackText(WasteFeedbackEvent eventData)
+    {
         if (feedbackMessageText == null)
             return;
 
-        feedbackMessageText.text = eventData.Message;
+        feedbackMessageText.text = string.IsNullOrEmpty(eventData.LanguageKey)
+            ? eventData.Message
+            : TableSystem.GetLanguage(eventData.LanguageKey);
+    }
+
+    private void OnLanguageChanged()
+    {
+        if (hasProgressEvent)
+        {
+            RefreshProgressText(lastProgressEvent);
+        }
+
+        if (hasFeedbackEvent)
+        {
+            RefreshFeedbackText(lastFeedbackEvent);
+        }
     }
 }

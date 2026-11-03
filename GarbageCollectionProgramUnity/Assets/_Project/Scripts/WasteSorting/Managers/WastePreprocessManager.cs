@@ -81,6 +81,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         GameEventBus.Subscribe<WastePreprocessPanelChangedEvent>(
             OnPreprocessPanelChanged
         );
+        TableSystem.LanguageChanged += OnLanguageChanged;
     }
 
     private void OnDisable()
@@ -104,9 +105,22 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         GameEventBus.Unsubscribe<WastePreprocessPanelChangedEvent>(
             OnPreprocessPanelChanged
         );
+        TableSystem.LanguageChanged -= OnLanguageChanged;
     }
 
     #endregion
+
+    private void OnLanguageChanged()
+    {
+        if (hasActiveItem &&
+            itemStates.TryGetValue(
+                activeItemEntityId,
+                out ItemPreprocessState state
+            ))
+        {
+            PublishCurrentStep(activeItemEntityId, state);
+        }
+    }
 
     /// <summary>
     /// 只负责控制预处理面板的显示和隐藏。
@@ -253,7 +267,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         if (state.IsCompleted)
         {
             PublishFeedback(
-                TableSystem.GetLanguage("feedback_ready_to_sort")
+                "feedback_ready_to_sort"
             );
 
             CommonTool.Log(
@@ -355,7 +369,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
         );
 
         PublishFeedback(
-            TableSystem.GetLanguage("feedback_preprocess_required")
+            "feedback_preprocess_required"
         );
     }
 
@@ -409,7 +423,7 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
             PublishPanelClosed(activeItemEntityId);
 
             PublishFeedback(
-                TableSystem.GetLanguage("feedback_preprocess_completed")
+                "feedback_preprocess_completed"
             );
 
             hasActiveItem = false;
@@ -469,11 +483,12 @@ public class WastePreprocessManager : MonoSingleton<WastePreprocessManager>
 
     #region Feedback
 
-    private void PublishFeedback(string message)
+    private void PublishFeedback(string languageKey)
     {
         GameEventBus.Publish(
             new WasteFeedbackEvent(
-                message
+                TableSystem.GetLanguage(languageKey),
+                languageKey
             )
         );
     }

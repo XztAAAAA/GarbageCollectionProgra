@@ -13,7 +13,14 @@ public class LocalizedTextMeshProUGUI : TextMeshProUGUI
     protected override void OnEnable()
     {
         base.OnEnable();
+        TableSystem.LanguageChanged += RefreshLocalizedText;
         RefreshLocalizedText();
+    }
+
+    protected override void OnDisable()
+    {
+        TableSystem.LanguageChanged -= RefreshLocalizedText;
+        base.OnDisable();
     }
 
     public bool TryGetLocalizedText(

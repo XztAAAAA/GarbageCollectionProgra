@@ -5,9 +5,17 @@
 public readonly struct WasteFeedbackEvent
 {
     public string Message { get; }
+    public string LanguageKey { get; }
 
     public WasteFeedbackEvent(string message)
     {
         Message = message;
+        LanguageKey = null;
+    }
+
+    public WasteFeedbackEvent(string message, string languageKey)
+    {
+        Message = message;
+        LanguageKey = languageKey;
     }
 }

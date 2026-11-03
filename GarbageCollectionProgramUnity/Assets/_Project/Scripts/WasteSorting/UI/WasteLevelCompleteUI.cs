@@ -37,6 +37,8 @@ public class WasteLevelCompleteUI : MonoBehaviour
 
     private RectTransform content;
     private Tween contentPopupTween;
+    private WasteLevelCompletedEvent lastCompletedEvent;
+    private bool hasCompletedEvent;
 
     private void Awake()
     {
@@ -59,6 +61,7 @@ public class WasteLevelCompleteUI : MonoBehaviour
     private void OnEnable()
     {
         PlayContentPopup();
+        TableSystem.LanguageChanged += OnLanguageChanged;
 
         if (nextLevelButton != null)
         {
@@ -96,6 +99,8 @@ public class WasteLevelCompleteUI : MonoBehaviour
                 OnMainMenuClicked
             );
         }
+
+        TableSystem.LanguageChanged -= OnLanguageChanged;
     }
 
     private void PlayContentPopup()
@@ -160,6 +165,24 @@ public class WasteLevelCompleteUI : MonoBehaviour
         WasteLevelCompletedEvent eventData)
     {
         AudioTool.PlaySound("level_rush_arrive", 0.8f);
+        if (flowManager == null)
+            return;
+
+        lastCompletedEvent = eventData;
+        hasCompletedEvent = true;
+        RefreshLocalizedTexts(eventData);
+    }
+
+    private void OnLanguageChanged()
+    {
+        if (hasCompletedEvent)
+        {
+            RefreshLocalizedTexts(lastCompletedEvent);
+        }
+    }
+
+    private void RefreshLocalizedTexts(WasteLevelCompletedEvent eventData)
+    {
         if (flowManager == null)
             return;
 
