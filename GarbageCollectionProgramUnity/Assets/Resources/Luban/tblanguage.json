@@ -295,6 +295,26 @@
     "koreanText": "축하합니다! 모든 레벨을 완료했어요!"
   },
   {
+    "id": "settings_title",
+    "chineseText": "游戏设置",
+    "koreanText": "게임 설정"
+  },
+  {
+    "id": "setting_language",
+    "chineseText": "语言设置",
+    "koreanText": "언어 설정"
+  },
+  {
+    "id": "language_chinese",
+    "chineseText": "简体中文",
+    "koreanText": "중국어(간체)"
+  },
+  {
+    "id": "language_korean",
+    "chineseText": "韩语",
+    "koreanText": "한국어"
+  },
+  {
     "id": "preprocess_done",
     "chineseText": "处理完成",
     "koreanText": "처리 완료"
@@ -315,11 +335,6 @@
     "koreanText": "모든 도전을 완료했어요!"
   },
   {
-    "id": "settings_title",
-    "chineseText": "游戏设置",
-    "koreanText": "게임 설정"
-  },
-  {
     "id": "settings_bgm",
     "chineseText": "背景音乐",
     "koreanText": "배경 음악"
@@ -333,16 +348,6 @@
     "id": "settings_language",
     "chineseText": "语言",
     "koreanText": "언어"
-  },
-  {
-    "id": "language_chinese",
-    "chineseText": "简体中文",
-    "koreanText": "중국어(간체)"
-  },
-  {
-    "id": "language_korean",
-    "chineseText": "韩语",
-    "koreanText": "한국어"
   },
   {
     "id": "settings_on",
