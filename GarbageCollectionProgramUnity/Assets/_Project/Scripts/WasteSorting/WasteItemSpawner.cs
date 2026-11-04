@@ -8,9 +8,13 @@ using UnityEngine;
 /// </summary>
 public class WasteItemSpawner : MonoBehaviour
 {
+    private const string FirstLoginTipsShownKey =
+        "Waste_FirstLoginTipsShown";
+
     [Header("生成设置 / 생성 설정")]
     [SerializeField] private RectTransform itemContainer;
     [SerializeField] private WasteItemView itemPrefab;
+    [SerializeField] public TiipsPanel tipsPanel;
 
     [Header("物体尺寸 / 오브젝트 크기")]
     [SerializeField]
@@ -85,10 +89,23 @@ public class WasteItemSpawner : MonoBehaviour
             $"{levelData.LevelName}"
         );
 
+        WasteItemView topmostItem = null;
+        float topmostPositionY = float.NegativeInfinity;
+
         // 根据关卡配置的垃圾 ID 列表生成
         foreach (int itemId in levelData.WasteItemIds)
         {
-            SpawnSingleItem(itemId);
+            WasteItemView view = SpawnSingleItem(itemId);
+            if (view == null)
+                continue;
+
+            float positionY =
+                view.GetComponent<RectTransform>().anchoredPosition.y;
+            if (positionY > topmostPositionY)
+            {
+                topmostItem = view;
+                topmostPositionY = positionY;
+            }
         }
 
         // 通知游戏管理器：本关垃圾已经全部生成
@@ -96,16 +113,42 @@ public class WasteItemSpawner : MonoBehaviour
             new WasteItemsSpawnedEvent(spawnedItems.Count)
         );
 
+        ShowFirstLoginTips(topmostItem);
+
         CommonTool.Log(
             $"[WasteItemSpawner] 第 {levelId} 关生成完成，" +
             $"共生成 {spawnedItems.Count} 个垃圾。"
         );
     }
 
+    private void ShowFirstLoginTips(WasteItemView topmostItem)
+    {
+        if (PlayerPrefs.GetInt(FirstLoginTipsShownKey, 0) == 1)
+            return;
+
+        if (topmostItem == null)
+            return;
+
+        if (tipsPanel == null)
+        {
+            CommonTool.LogError(
+                "[WasteItemSpawner] 找不到 TiipsPanel，无法显示首次登录提示。",
+                this
+            );
+            return;
+        }
+
+        tipsPanel.Init(topmostItem);
+        tipsPanel.gameObject.SetActive(true);
+
+        PlayerPrefs.SetInt(FirstLoginTipsShownKey, 1);
+        PlayerPrefs.Save();
+    }
+
     /// <summary>
     /// 生成单个垃圾物品。
     /// </summary>
-    private void SpawnSingleItem(int itemId)
+    private WasteItemView SpawnSingleItem(int itemId)
     {
         var data = TableSystem.Tables.TbWasteItem.Get(itemId);
 
@@ -114,7 +157,7 @@ public class WasteItemSpawner : MonoBehaviour
             CommonTool.LogError(
                 $"[WasteItemSpawner] 找不到垃圾配置：{itemId}"
             );
-            return;
+            return null;
         }
 
         WasteItemView view = Instantiate(
@@ -166,6 +209,8 @@ public class WasteItemSpawner : MonoBehaviour
                 data.Id
             )
         );
+
+        return view;
     }
 
     /// <summary>

@@ -146,10 +146,7 @@ public static class WasteLevelProgress
     /// </summary>
     public static void ClearProgress()
     {
-        PlayerPrefs.DeleteKey(HighestUnlockedLevelKey);
-        PlayerPrefs.DeleteKey(ContinueLevelKey);
-        PlayerPrefs.DeleteKey(HasSaveKey);
-        PlayerPrefs.DeleteKey(AllLevelsCompletedKey);
+        PlayerPrefs.DeleteAll();
 
         PlayerPrefs.Save();
 

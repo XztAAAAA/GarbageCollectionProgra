@@ -12,6 +12,8 @@ public class WasteItemView : MonoBehaviour
     // 使用 Luban 生成的枚举名称作为分类标识
     public cfg.waste.WasteCategory CategoryKey { get; private set; }
 
+    public Sprite Sprite;
+
     private void Awake()
     {
         if (itemImage == null)
@@ -41,8 +43,9 @@ public class WasteItemView : MonoBehaviour
         ItemId = itemId;
         IconKey = iconKey;
         CategoryKey = categoryKey;
+        Sprite = sprite;
 
-        SetImage(sprite);
+        SetImage(Sprite);
         gameObject.name = itemId.ToString() + "_" + CategoryKey.ToString();
     }
 

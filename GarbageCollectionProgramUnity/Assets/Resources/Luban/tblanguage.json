@@ -315,6 +315,11 @@
     "koreanText": "한국어"
   },
   {
+    "id": "settings_off",
+    "chineseText": "关闭",
+    "koreanText": "끄기"
+  },
+  {
     "id": "preprocess_done",
     "chineseText": "处理完成",
     "koreanText": "처리 완료"
@@ -355,23 +360,8 @@
     "koreanText": "켜기"
   },
   {
-    "id": "settings_off",
-    "chineseText": "关闭",
-    "koreanText": "끄기"
-  },
-  {
     "id": "tutorial_welcome",
-    "chineseText": "欢迎来到分类小队！",
-    "koreanText": "분리배출 탐험대에 오신 것을 환영합니다!"
-  },
-  {
-    "id": "tutorial_preprocess",
-    "chineseText": "部分物品需要先处理，再进行分类。",
-    "koreanText": "일부 쓰레기는 먼저 전처리한 후 분리배출해야 합니다."
-  },
-  {
-    "id": "tutorial_finish",
-    "chineseText": "完成所有物品的分类即可通关。",
-    "koreanText": "모든 쓰레기를 분리배출하면 레벨이 완료됩니다."
+    "chineseText": "欢迎来到分类小队！\n部分物品需要先点击处理，再进行分类。\n完成所有物品的分类即可通关。",
+    "koreanText": "분리배출 탐험대에 오신 것을 환영합니다!\n일부 물건은 먼저 클릭해서 처리한 후, 분류해야 해.\n모든 쓰레기를 분리배출하면 레벨이 완료됩니다."
   }
 ]

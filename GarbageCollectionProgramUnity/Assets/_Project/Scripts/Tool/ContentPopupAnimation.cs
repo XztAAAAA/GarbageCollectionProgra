@@ -10,6 +10,9 @@ public class ContentPopupAnimation : MonoBehaviour
     [SerializeField, Min(0f)]
     private float startScale = 0.75f;
 
+    [SerializeField, Min(0f)]
+    private float endScale = 1f;
+
     private RectTransform content;
     private Tween popupTween;
 
@@ -37,7 +40,7 @@ public class ContentPopupAnimation : MonoBehaviour
         popupTween?.Kill();
         content.localScale = Vector3.one * startScale;
         popupTween = content
-            .DOScale(Vector3.one, duration)
+            .DOScale(Vector3.one * endScale, duration)
             .SetEase(Ease.OutBack)
             .SetUpdate(true);
     }
@@ -49,7 +52,7 @@ public class ContentPopupAnimation : MonoBehaviour
 
         if (content != null)
         {
-            content.localScale = Vector3.one;
+            content.localScale = Vector3.one * endScale;
         }
     }
 }
